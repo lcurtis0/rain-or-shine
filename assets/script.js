@@ -65,17 +65,16 @@ var searchCityWeatherInput = function(event){ // this function will be called on
       
         fetch(APIURL)
           .then(function (response) {
-            if (response.cityName) {// .ok is a property
+            if (response.cityName) {// .ok is a property that is a boolean saying if the information is transferable
               console.log(response);
               console.log(response.cityName);
               response.json() // .json will parse the data making it legiable for javascript
               .then(function (data) {  
                 console.log(data);
-                displayRepos(data, cityName);
-              });
-            } else {
-              alert('Error: ' + response.statusText);
-            }
+                displayCities(data, cityName);
+
+
+
           })
           .catch(function (error) {
             alert('Unable to connect to GitHub');
@@ -85,15 +84,40 @@ var searchCityWeatherInput = function(event){ // this function will be called on
     
 }
 
-var displayRepos = function (repos, searchTerm) {
-    if (repos.length === 0) {
+var displayRepos = function (currentWeek, searchTerm) {
+    if (currentWeek.length === 0) {
         openAreaDiv.textContent = '<h4>Enter a location or city in the search bar</h4>' + "<i class=' status-icon icon-'></i>";
       return;
     }
 
     repoSearchTerm.textContent = searchTerm;
 
-  for (var i = 0; i < repos.length; i++) {
+        var cityInfoCurrentEl = document.open-area.createElement('div');
+                                
+    cityInfoCurrentEl.classList = 'list-item flex-row justify-space-between align-center box';
+
+    var tempEl = document.open-area.cityInfoCurrentEl.createElement('p');
+    // may have to create an if statement to have date be the same or display throgh page 1
+    tempEl = parameter.property[0].temp;
+
+    var windSpeedEl = document.open-area.cityInfoCurrentEl.createElement('p');
+    windSpeedEl = parameter.property[0].temp;
+
+    var humidityEl = document.open-area.cityInfoCurrentEl.createElement('p');
+    humidityEl = parameter.property[0].humidity;
+
+
+ for (var i = 1; i < 6; i++) { //This for loop will cycle through the dates after the current date
+
+    var afterDay = document.open-area.createElement('div');
+
+              });
+            } else {
+              alert('Error: ' + response.statusText);
+            }
+
+
+  for (var i = 0; i < 6; i++) {
     var repoName = repos[i].owner.login + '/' + repos[i].name;
 
     var repoEl = document.createElement('a');

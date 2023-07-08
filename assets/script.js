@@ -65,17 +65,16 @@ var searchCityWeatherInput = function(event){ // this function will be called on
       
         fetch(APIURL)
           .then(function (response) {
-            if (response.cityName) {// .ok is a property
+            if (response.cityName) {// .ok is a property that is a boolean saying if the information is transferable
               console.log(response);
               console.log(response.cityName);
               response.json() // .json will parse the data making it legiable for javascript
               .then(function (data) {  
                 console.log(data);
-                displayRepos(data, cityName);
-              });
-            } else {
-              alert('Error: ' + response.statusText);
-            }
+                displayCities(data, cityName);
+
+
+
           })
           .catch(function (error) {
             alert('Unable to connect to GitHub');
@@ -85,44 +84,98 @@ var searchCityWeatherInput = function(event){ // this function will be called on
     
 }
 
-var displayRepos = function (repos, searchTerm) {
-    if (repos.length === 0) {
+var displayRepos = function (currentWeek, searchTerm) {
+    if (currentWeek.length === 0) {
         openAreaDiv.textContent = '<h4>Enter a location or city in the search bar</h4>' + "<i class=' status-icon icon-'></i>";
       return;
     }
 
     repoSearchTerm.textContent = searchTerm;
 
-  for (var i = 0; i < repos.length; i++) {
-    var repoName = repos[i].owner.login + '/' + repos[i].name;
+        var cityInfoCurrentEl = document.open-area.createElement('div');
+                                
+    cityInfoCurrentEl.classList = 'list-item flex-row justify-space-between align-center box';
 
-    var repoEl = document.createElement('a');
-    repoEl.classList = 'list-item flex-row justify-space-between align-center';
-    repoEl.setAttribute('href', './single-repo.html?repo=' + repoName);
+        var forcastEl = document.open-area.cityInfoCurrentEl.createElement('h2');
+    forcastEl = parameter.property[0].forcast;
 
-    var titleEl = document.createElement('span');
-    titleEl.textContent = repoName;
-
-    repoEl.appendChild(titleEl);
-
-    var statusEl = document.createElement('span');
-    statusEl.classList = 'flex-row align-center';
-
-    if (repos[i].open_issues_count > 0) {
+        if (parameter.property[0].forcast === rain) {
         statusEl.innerHTML =
-          "<i class='fas fa-times status-icon icon-danger'></i>" + repos[i].open_issues_count + ' issue(s)';
+          "<i class='rain-icon '></i>" + 'today will have' + percentage + 'chance of rain';
+      } else if (parameter.property[0].forcast === cloudy){
+        statusEl.innerHTML =
+          "<i class='cloudy-icon '></i>" + 'today will have' + percentage + 'chance of cloudy';
+      } else if (parameter.property[0].forcast === sunshine){
+        statusEl.innerHTML =
+          "<i class='sunshine-icon '></i>" + 'today will have' + percentage + 'chance of sunshine';
+      } else if (parameter.property[0].forcast === thunderstorms){
+        statusEl.innerHTML =
+          "<i class='thunderstorms-icon '></i>" + 'today will have' + percentage + 'chance of thunderstorms';
       } else {
-        statusEl.innerHTML = "<i class='fas fa-check-square status-icon icon-success'></i>";
+        statusEl.innerHTML =
+          "<i class='error-icon '></i>" + 'error: wheather cannot be found';
       }
+
+
+    var tempEl = document.open-area.cityInfoCurrentEl.createElement('p');
+    // may have to create an if statement to have date be the same or display throgh page 1
+    tempEl = parameter.property[0].temp;
+
+    var windSpeedEl = document.open-area.cityInfoCurrentEl.createElement('p');
+    windSpeedEl = parameter.property[0].windSpeed;
+
+    var humidityEl = document.open-area.cityInfoCurrentEl.createElement('p');
+    humidityEl = parameter.property[0].humidity;
+
+
+ for (var i = 1; i < 6; i++) { //This for loop will cycle through the dates after the current date
+
+    var afterDay = document.open-area.createElement('div');
+
+    var futureDateDiv = document.open-area.createElement('div');
+
+    var weekDate = month + day[i].year + '/' + .year;
+
+    var forcastEl = document.open-area.futureDateDiv.createElement('h2');
+    forcastEl = parameter.property[i].forcast;
+
+        if (parameter.property[0].forcast === rain) {
+        statusEl.innerHTML =
+          "<i class='rain-icon '></i>" + 'today will have' + percentage + 'chance of rain';
+      } else if (parameter.property[0].forcast === cloudy){
+        statusEl.innerHTML =
+          "<i class='cloudy-icon '></i>" + 'today will have' + percentage + 'chance of cloudy';
+      } else if (parameter.property[0].forcast === sunshine){
+        statusEl.innerHTML =
+          "<i class='sunshine-icon '></i>" + 'today will have' + percentage + 'chance of sunshine';
+      } else if (parameter.property[0].forcast === thunderstorms){
+        statusEl.innerHTML =
+          "<i class='thunderstorms-icon '></i>" + 'today will have' + percentage + 'chance of thunderstorms';
+      } else {
+        statusEl.innerHTML =
+          "<i class='error-icon '></i>" + 'error: wheather cannot be found';
+      }
+
+    var tempEl = document.open-area.futureDateDiv.createElement('p');
+    tempEl = parameter.property[i].temp;
+
+    var windSpeedEl = document.open-area.futureDateDiv.createElement('p');
+    windSpeedEl = parameter.property[i].windSpeed;
+
+    var humidityEl = document.open-area.futureDateDiv.createElement('p');
+    humidityEl = parameter.property[i].humidity;
+
+                  });
+            } else {
+              alert('Error: ' + response.statusText + 'date not found');
+            }
+
   
-      repoEl.appendChild(statusEl);
-  
-      repoContainerEl.appendChild(repoEl);
     }
   };
   
-  userFormEl.addEventListener('submit', formSubmitHandler);
-  languageButtonsEl.addEventListener('click', buttonClickHandler);
+  userCitySearch.addEventListener('submit',searchCityWeatherInput);
+  populousCities.addEventListener('click', buttonClickHandler);
   
 
 */

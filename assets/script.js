@@ -29,6 +29,7 @@ fetch(fullURL)
   .then(function (data) {
     console.log(data)
     console.log(data.weather[0].main);
+    console.log(response);
   });
 }
 
@@ -63,34 +64,55 @@ var searchCityWeatherInput = function(event){ // this function will be called on
         }
       };
      
+      /*
       
+var getFeaturedRepos = function (language) {
+  var apiUrl = 'https://api.github.com/search/repositories?q=' + language + '+is:featured&sort=help-wanted-issues';
+
+  fetch(apiUrl).then(function (response) {
+    if (response.ok) {
+      response.json().then(function (data) {
+        displayRepos(data.items, language);
+      });
+    } else {
+      alert('Error: ' + response.statusText);
+    }
+  });
+};
+
+var displayRepos = function (repos, searchTerm) {
+  if (repos.length === 0) {
+    repoContainerEl.textContent = 'No repositories found.';
+    return;
+  }
+      */
       var getCityNameRepos = function (cityNmae) { // Once the cityName have been made into the search bar it will activate this function
         var APIURL = baseOpenWeatherURL + cityName + keyAPI; // the variable will be placed into this URL guiding the user to any repos of the same city 
       
-        fetch(APIURL)
-          .then(function (response) {
-            if (response.cityName) {// .ok is a property that is a boolean saying if the information is transferable
+        fetch(APIURL).then(function (response) {
+            if (response.ok) {// .ok is a property that is a boolean saying if the information is transferable
               console.log(response);
               console.log(response.cityName);
               response.json() // .json will parse the data making it legiable for javascript
+            
               .then(function (data) {  
                 console.log(data);
                 displayCities(data, cityName);
-
-
-
           })
+
           .catch(function (error) {
             alert('Unable to connect to Open Weather API');
           });
       };
 
     
-}
+});
 
-var displayWaether = function (currentWeek, searchTerm) {
+
+
+var displayWeather = function (currentWeek, searchTerm) {
     if (currentWeek.length === 0) {
-        openAreaDiv.textContent = '<h4>Enter a location or city in the search bar</h4>' + "<i class=' status-icon icon-'></i>";
+        openAreaDiv.textContent = 'Enter a location or city in the search bar' + "<i class=' status-icon icon-'></i>";
       return;
     }
 }
@@ -201,6 +223,5 @@ each with a display of name, date, weather, weather icon,
  wind speed, tempture, and humitaty 
 
  For each day will be a box and have the stats inside of them
-
-*/
+*/ 
 

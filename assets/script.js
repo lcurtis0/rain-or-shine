@@ -16,9 +16,22 @@
 
     var fullURL = baseOpenWeatherURL + cityName + keyAPI;
 
+    var cityName = 'Austin';
     
-console.log(fetch('https://api.openweathermap.org/data/2.5/forecast?'));
+    function getApi() {
+console.log(fetch(fullURL));
 
+fetch(fullURL)
+.then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    console.log(data)
+  });
+}
+
+getApi();
+/*
 var searchCityWeatherInput = function(event){ // this function will be called on first when event happens 
     event.preventDefault();
     var cityName = inputCityName.value;
@@ -112,6 +125,8 @@ var displayRepos = function (repos, searchTerm) {
   languageButtonsEl.addEventListener('click', buttonClickHandler);
   
 
+*/
+
 /*
 
 Plan of attack 
@@ -127,3 +142,4 @@ each with a display of name, date, weather, weather icon,
  For each day will be a box and have the stats inside of them
 
 */
+

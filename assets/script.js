@@ -96,12 +96,33 @@ var displayRepos = function (currentWeek, searchTerm) {
                                 
     cityInfoCurrentEl.classList = 'list-item flex-row justify-space-between align-center box';
 
+        var forcastEl = document.open-area.cityInfoCurrentEl.createElement('h2');
+    forcastEl = parameter.property[0].forcast;
+
+        if (parameter.property[0].forcast === rain) {
+        statusEl.innerHTML =
+          "<i class='rain-icon '></i>" + 'today will have' + percentage + 'chance of rain';
+      } else if (parameter.property[0].forcast === cloudy){
+        statusEl.innerHTML =
+          "<i class='cloudy-icon '></i>" + 'today will have' + percentage + 'chance of cloudy';
+      } else if (parameter.property[0].forcast === sunshine){
+        statusEl.innerHTML =
+          "<i class='sunshine-icon '></i>" + 'today will have' + percentage + 'chance of sunshine';
+      } else if (parameter.property[0].forcast === thunderstorms){
+        statusEl.innerHTML =
+          "<i class='thunderstorms-icon '></i>" + 'today will have' + percentage + 'chance of thunderstorms';
+      } else {
+        statusEl.innerHTML =
+          "<i class='error-icon '></i>" + 'error: wheather cannot be found';
+      }
+
+
     var tempEl = document.open-area.cityInfoCurrentEl.createElement('p');
     // may have to create an if statement to have date be the same or display throgh page 1
     tempEl = parameter.property[0].temp;
 
     var windSpeedEl = document.open-area.cityInfoCurrentEl.createElement('p');
-    windSpeedEl = parameter.property[0].temp;
+    windSpeedEl = parameter.property[0].windSpeed;
 
     var humidityEl = document.open-area.cityInfoCurrentEl.createElement('p');
     humidityEl = parameter.property[0].humidity;
@@ -111,42 +132,50 @@ var displayRepos = function (currentWeek, searchTerm) {
 
     var afterDay = document.open-area.createElement('div');
 
-              });
+    var futureDateDiv = document.open-area.createElement('div');
+
+    var weekDate = month + day[i].year + '/' + .year;
+
+    var forcastEl = document.open-area.futureDateDiv.createElement('h2');
+    forcastEl = parameter.property[i].forcast;
+
+        if (parameter.property[0].forcast === rain) {
+        statusEl.innerHTML =
+          "<i class='rain-icon '></i>" + 'today will have' + percentage + 'chance of rain';
+      } else if (parameter.property[0].forcast === cloudy){
+        statusEl.innerHTML =
+          "<i class='cloudy-icon '></i>" + 'today will have' + percentage + 'chance of cloudy';
+      } else if (parameter.property[0].forcast === sunshine){
+        statusEl.innerHTML =
+          "<i class='sunshine-icon '></i>" + 'today will have' + percentage + 'chance of sunshine';
+      } else if (parameter.property[0].forcast === thunderstorms){
+        statusEl.innerHTML =
+          "<i class='thunderstorms-icon '></i>" + 'today will have' + percentage + 'chance of thunderstorms';
+      } else {
+        statusEl.innerHTML =
+          "<i class='error-icon '></i>" + 'error: wheather cannot be found';
+      }
+
+    var tempEl = document.open-area.futureDateDiv.createElement('p');
+    tempEl = parameter.property[i].temp;
+
+    var windSpeedEl = document.open-area.futureDateDiv.createElement('p');
+    windSpeedEl = parameter.property[i].windSpeed;
+
+    var humidityEl = document.open-area.futureDateDiv.createElement('p');
+    humidityEl = parameter.property[i].humidity;
+
+                  });
             } else {
-              alert('Error: ' + response.statusText);
+              alert('Error: ' + response.statusText + 'date not found');
             }
 
-
-  for (var i = 0; i < 6; i++) {
-    var repoName = repos[i].owner.login + '/' + repos[i].name;
-
-    var repoEl = document.createElement('a');
-    repoEl.classList = 'list-item flex-row justify-space-between align-center';
-    repoEl.setAttribute('href', './single-repo.html?repo=' + repoName);
-
-    var titleEl = document.createElement('span');
-    titleEl.textContent = repoName;
-
-    repoEl.appendChild(titleEl);
-
-    var statusEl = document.createElement('span');
-    statusEl.classList = 'flex-row align-center';
-
-    if (repos[i].open_issues_count > 0) {
-        statusEl.innerHTML =
-          "<i class='fas fa-times status-icon icon-danger'></i>" + repos[i].open_issues_count + ' issue(s)';
-      } else {
-        statusEl.innerHTML = "<i class='fas fa-check-square status-icon icon-success'></i>";
-      }
   
-      repoEl.appendChild(statusEl);
-  
-      repoContainerEl.appendChild(repoEl);
     }
   };
   
-  userFormEl.addEventListener('submit', formSubmitHandler);
-  languageButtonsEl.addEventListener('click', buttonClickHandler);
+  userCitySearch.addEventListener('submit',searchCityWeatherInput);
+  populousCities.addEventListener('click', buttonClickHandler);
   
 
 */

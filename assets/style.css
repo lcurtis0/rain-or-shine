@@ -1,10 +1,12 @@
 :root {
-    --primary: #ccdad1;
-    --secondary: #9caea9;
-    --tertiary: #788585;
-    --light-dark: #6f6866;
-    --dark: #38302e;
-    --border-radius: .3rem;
+    --primary: #d8d8d8;
+    --secondary: #94c3e2;
+    --tertiary: #6696bd;
+    --light-dark: #675c86;
+    --dark: #251e1c;
+    --border-radius: 12px;
+
+    --margin-padding:10px;
   }
   
   * {
@@ -13,12 +15,12 @@
   
   body {
     background-color: var(--primary);
-    margin: 0;
-    padding: 0;
-    font-family: "IBM Plex Sans", sans-serif;
+    margin:var(--margin-padding);
+    padding: var(--margin-padding);
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: var(--dark);
     line-height: 1.5;
-    font-size: 16px;
+    font-size: 18px;
   }
   
   h1,
@@ -27,34 +29,32 @@
   h4,
   h5,
   h6 {
-    font-weight: 700;
-    margin: 0;
+    font-weight: 500;
+    margin: var(--margin-padding);
     color: var(--dark);
-    line-height: 1.25;
   }
   
   main {
-    margin: 20px auto;
-    width: 94%;
+    margin: var(--margin-padding);
   }
   
   p {
-    font-size: 1.2rem;
+    font-size: 12px;
   }
   
    .btn {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     text-decoration:none;
-    padding: 6px 5px;
+    padding:var(--margin-padding);
     width: 100%;
     display: block;
-    margin: 5px 0;
+    margin: var(--margin-padding);
     border-radius: var(--border-radius);
     color: var(--primary);
     border: none;
     outline: none;
     background-color: var(--light-dark);
-    box-shadow: 3px 3px var(--dark);
+    box-shadow: 2px 2px var(--dark);
     transform: translate(-1px, -1px);
   }
   
@@ -75,12 +75,12 @@
     border: none;
     outline: none;
     background-color: var(--light-dark);
-    box-shadow: 3px 3px var(--secondary);
+    box-shadow: 2px 2px var(--secondary);
     transform: translate(-1px, -1px);
     display: inline-block;
     width: auto;
-    margin-top: 20px;
-    padding: 15px;
+    margin-top: var(--margin-padding);
+    padding: var(--margin-padding);
     text-decoration: none;
     font-size: 1.2rem;
   }
@@ -93,13 +93,9 @@
   }
   
   .hero {
-    padding: 3% 4%;
+    padding: var(--margin-padding);
     background-color: var(--dark);
     color: var(--primary);
-  }
-  
-  .hero p {
-    max-width: 75%;
   }
   
   .app-title {
@@ -131,29 +127,29 @@
   }
   
   .status-icon {
-    padding: 2px 5px;
-    margin: 0 10px;
-    background-color: rgba(255,255,255, 1);
+    padding: var(--margin-padding);
+    margin: var(--margin-padding);
+    background-color:var(--secondary);
     border-radius: var(--border-radius);
   }
   
   .icon-danger {
-    color: rgb(255, 70, 70);
+    color: rgb(175, 19, 19);
   }
   
   .icon-success {
-    color: rgb(29, 153, 255);
+    color: rgb(19, 146, 62);
   }
   
 
   .Search-box {
-    margin: 0 0 20px 0;
-    border: 3px solid var(--dark);
+    margin:var(--margin-padding);
+    border: 2px solid var(--dark);
     border-radius: var(--border-radius);
   }
   
   .suggestion-box {
-    margin: 0 0 20px 0;
+    margin:var(--margin-padding);
     border: 3px solid var(--dark);
     border-radius: var(--border-radius);
 
@@ -162,7 +158,7 @@
   .card-header {
     color: var(--primary);
     background-color: var(--dark);
-    padding: 2.5%;
+    padding: var(--margin-padding);
     border-radius: calc(.18rem - 1px) calc(.18rem - 1px) 0 0;
   }
   
@@ -178,15 +174,16 @@
   }
   
   .form-label {
-    font-size: 1.1rem;
-    margin: 0 0 0 5px;
+    
+    font-size: 1.2rem;
+    margin: 5px;
+    color: var(--tertiary);
   }
   
   .form-input {
     width: 100%;
-    padding: 3%;
-    margin: 5px 0;
-    font-size: 1.2rem;
+    padding: 4px;
+    font-size: 12px;
     border: 2px solid var(--light-dark);
     border-radius: var(--border-radius);
   }

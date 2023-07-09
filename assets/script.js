@@ -8,15 +8,17 @@
     var inputCityName = document.querySelector('#city-name');
     // ^^ This is the input by the user on the search bar
     var populousCities = document.querySelector('populous-cities');
+    var userInputTitle = document.querySelector('phase-city-user-input-title');
 
    // "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=1f607030bc029e79a2a927c3fe3fb558";
     var baseOpenWeatherURL = 'http://api.openweathermap.org/data/2.5/weather?q=' 
 
     var keyAPI = '&appid=1f607030bc029e79a2a927c3fe3fb558'
 
-    var fullURL = baseOpenWeatherURL + cityName + keyAPI;
+    
+var cityName = 'seattle';
 
-    var cityName = 'Austin';
+var fullURL = baseOpenWeatherURL + cityName + keyAPI;
     
     function getApi() {
 console.log(fetch(fullURL));
@@ -24,22 +26,36 @@ console.log(fetch(fullURL));
 fetch(fullURL)
 .then(function (response) {
     return response.json();
+    if(response.ok){
+        console.log("is able to connect");
+    } else {
+        console.log("not happening");
+    }
   })
   .then(function (data) {
+    if(response.ok){
+        console.log("is able to connect");
+    } else {
+        console.log("not happening");
+    }
     console.log(data)
+    console.log(data.weather[0].main);
+
   });
 }
 
 getApi();
+
 /*
+
 var searchCityWeatherInput = function(event){ // this function will be called on first when event happens 
     event.preventDefault();
-    var cityName = inputCityName.value;
+    var cityName = inputCityName.value.trim();
 
     //This section is for the search bar for location
     if (cityName){
 
-        get 1 Repos(cityName); // note to self get 1 = city name, get 2 = suggested popular cities
+        getCityNameRepos(cityName); // note to self get 1 = city name, get 2 = suggested popular cities
 
         openAreaDiv.textContent = '';
         inputCityName.value = '';
@@ -47,70 +63,76 @@ var searchCityWeatherInput = function(event){ // this function will be called on
     } else {
         alert("Invalid: The user must enter a valid location");
     }
+}
 
     // This ection is for the well known city locations i.e. Denvier or New York
     var buttonClickHandler = function (event) {
         var populousCities = event.target.getAttribute('popular-cities'); // popular cities  is the attribute to each button in the HTML doc
       
         if (populousCities) { 
-          get 2 Repos(populousCities); // when click event happens, depending on the city chosen, 
+          getPopularCitiesRepos(populousCities); // when click event happens, depending on the city chosen, 
       
           repoContainerEl.textContent = '';
         }
       };
      
+      var getCityNameRepos = function (cityNmae) { // Once the cityName have been made into the search bar it will activate this function
+        var APIURL = baseOpenWeatherURL + cityName + keyAPI; // the variable will be placed into this URL guiding the user to any repos of the same city 
       
-      var get 1 Repos = function (cityNmae) { // Once the cityName have been made into the search bar it will activate this function
-        var APIURL = baseOpenWeatherURL + cityName + '/repos'; // the variable will be placed into this URL guiding the user to any repos of the same city 
-      
-        fetch(APIURL)
-          .then(function (response) {
-            if (response.cityName) {// .ok is a property that is a boolean saying if the information is transferable
+        fetch(APIURL).then(function (response) {
+            if (response.ok) {// .ok is a property that is a boolean saying if the information is transferable
               console.log(response);
               console.log(response.cityName);
-              response.json() // .json will parse the data making it legiable for javascript
+             return response.json() // .json will parse the data making it legiable for javascript
+            
               .then(function (data) {  
                 console.log(data);
                 displayCities(data, cityName);
-
-
-
           })
+
           .catch(function (error) {
-            alert('Unable to connect to GitHub');
+            alert('Unable to connect to Open Weather API');
           });
       };
 
     
-}
+});
 
-var displayRepos = function (currentWeek, searchTerm) {
+      }
+
+
+var displayWeather = function (currentWeek, searchTerm) {
     if (currentWeek.length === 0) {
-        openAreaDiv.textContent = '<h4>Enter a location or city in the search bar</h4>' + "<i class=' status-icon icon-'></i>";
+        openAreaDiv.textContent = 'Enter a location or city in the search bar' + "<i class=' status-icon icon-'></i>";
       return;
     }
+}
 
-    repoSearchTerm.textContent = searchTerm;
+userInputTitle.textContent = searchTerm; // whenever the user searches a city name it will appear to reminder the user on the page
 
-        var cityInfoCurrentEl = document.open-area.createElement('div');
+
+        var cityInfoCurrentEl = document.openAreaDiv.createElement('div'); // creates container for boxes
                                 
-    cityInfoCurrentEl.classList = 'list-item flex-row justify-space-between align-center box';
+    cityInfoCurrentEl.classList = 'list-item flex-row justify-space-between align-center';
 
-        var forcastEl = document.open-area.cityInfoCurrentEl.createElement('h2');
-    forcastEl = parameter.property[0].forcast;
+        var forcastEl = document.cityInfoCurrentEl.createElement('h2');
+    forcastEl = weather[0].main;
 
-        if (parameter.property[0].forcast === rain) {
+        if (parameter.property[0].forcast === Rain) {
         statusEl.innerHTML =
-          "<i class='rain-icon '></i>" + 'today will have' + percentage + 'chance of rain';
-      } else if (parameter.property[0].forcast === cloudy){
+          "<i class='rain-icon '></i>" + 'today will have' + weather[0].description;
+      } else if (weather[0].main === Clouds){
         statusEl.innerHTML =
-          "<i class='cloudy-icon '></i>" + 'today will have' + percentage + 'chance of cloudy';
-      } else if (parameter.property[0].forcast === sunshine){
+          "<i class='cloudy-icon '></i>" + 'today will have' + weather[0].description;
+      } else if (weather[0].main  === Sunshine){
         statusEl.innerHTML =
-          "<i class='sunshine-icon '></i>" + 'today will have' + percentage + 'chance of sunshine';
-      } else if (parameter.property[0].forcast === thunderstorms){
+          "<i class='sunshine-icon '></i>" + 'today will have' + weather[0].description;
+      } else if (weather[0].main  === thunderstorms){
         statusEl.innerHTML =
-          "<i class='thunderstorms-icon '></i>" + 'today will have' + percentage + 'chance of thunderstorms';
+          "<i class='thunderstorms-icon '></i>" + 'today will have' + weather[0].description;
+      }  else if (weather[0].main){
+        statusEl.innerHTML =
+          weather[0].main + 'today will have' + weather[0].description;
       } else {
         statusEl.innerHTML =
           "<i class='error-icon '></i>" + 'error: wheather cannot be found';
@@ -127,6 +149,7 @@ var displayRepos = function (currentWeek, searchTerm) {
     var humidityEl = document.open-area.cityInfoCurrentEl.createElement('p');
     humidityEl = parameter.property[0].humidity;
 
+    /*
 
  for (var i = 1; i < 6; i++) { //This for loop will cycle through the dates after the current date
 
@@ -173,12 +196,13 @@ var displayRepos = function (currentWeek, searchTerm) {
   
     }
   };
+  */ /*
   
   userCitySearch.addEventListener('submit',searchCityWeatherInput);
   populousCities.addEventListener('click', buttonClickHandler);
   
 
-*/
+
 
 /*
 
@@ -193,6 +217,5 @@ each with a display of name, date, weather, weather icon,
  wind speed, tempture, and humitaty 
 
  For each day will be a box and have the stats inside of them
-
-*/
+*/ 
 

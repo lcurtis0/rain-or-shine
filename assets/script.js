@@ -15,9 +15,10 @@
 
     var keyAPI = '&appid=1f607030bc029e79a2a927c3fe3fb558'
 
-   // var cityName = 'chicago';
+    
+var cityName = 'seattle';
 
-    var fullURL = baseOpenWeatherURL + cityName + keyAPI;
+var fullURL = baseOpenWeatherURL + cityName + keyAPI;
     
     function getApi() {
 console.log(fetch(fullURL));
@@ -25,21 +26,31 @@ console.log(fetch(fullURL));
 fetch(fullURL)
 .then(function (response) {
     return response.json();
+    if(response.ok){
+        console.log("is able to connect");
+    } else {
+        console.log("not happening");
+    }
   })
   .then(function (data) {
+    if(response.ok){
+        console.log("is able to connect");
+    } else {
+        console.log("not happening");
+    }
     console.log(data)
     console.log(data.weather[0].main);
-    console.log(response);
+
   });
 }
 
 getApi();
 
-
+/*
 
 var searchCityWeatherInput = function(event){ // this function will be called on first when event happens 
     event.preventDefault();
-    var cityName = inputCityName.value;
+    var cityName = inputCityName.value.trim();
 
     //This section is for the search bar for location
     if (cityName){
@@ -52,6 +63,7 @@ var searchCityWeatherInput = function(event){ // this function will be called on
     } else {
         alert("Invalid: The user must enter a valid location");
     }
+}
 
     // This ection is for the well known city locations i.e. Denvier or New York
     var buttonClickHandler = function (event) {
@@ -64,28 +76,6 @@ var searchCityWeatherInput = function(event){ // this function will be called on
         }
       };
      
-      /*
-      
-var getFeaturedRepos = function (language) {
-  var apiUrl = 'https://api.github.com/search/repositories?q=' + language + '+is:featured&sort=help-wanted-issues';
-
-  fetch(apiUrl).then(function (response) {
-    if (response.ok) {
-      response.json().then(function (data) {
-        displayRepos(data.items, language);
-      });
-    } else {
-      alert('Error: ' + response.statusText);
-    }
-  });
-};
-
-var displayRepos = function (repos, searchTerm) {
-  if (repos.length === 0) {
-    repoContainerEl.textContent = 'No repositories found.';
-    return;
-  }
-      */
       var getCityNameRepos = function (cityNmae) { // Once the cityName have been made into the search bar it will activate this function
         var APIURL = baseOpenWeatherURL + cityName + keyAPI; // the variable will be placed into this URL guiding the user to any repos of the same city 
       
@@ -93,7 +83,7 @@ var displayRepos = function (repos, searchTerm) {
             if (response.ok) {// .ok is a property that is a boolean saying if the information is transferable
               console.log(response);
               console.log(response.cityName);
-              response.json() // .json will parse the data making it legiable for javascript
+             return response.json() // .json will parse the data making it legiable for javascript
             
               .then(function (data) {  
                 console.log(data);
@@ -108,6 +98,7 @@ var displayRepos = function (repos, searchTerm) {
     
 });
 
+      }
 
 
 var displayWeather = function (currentWeek, searchTerm) {
@@ -133,12 +124,15 @@ userInputTitle.textContent = searchTerm; // whenever the user searches a city na
       } else if (weather[0].main === Clouds){
         statusEl.innerHTML =
           "<i class='cloudy-icon '></i>" + 'today will have' + weather[0].description;
-      } else if (parameter.property[0].forcast === Sunshine){
+      } else if (weather[0].main  === Sunshine){
         statusEl.innerHTML =
           "<i class='sunshine-icon '></i>" + 'today will have' + weather[0].description;
-      } else if (parameter.property[0].forcast === thunderstorms){
+      } else if (weather[0].main  === thunderstorms){
         statusEl.innerHTML =
           "<i class='thunderstorms-icon '></i>" + 'today will have' + weather[0].description;
+      }  else if (weather[0].main){
+        statusEl.innerHTML =
+          weather[0].main + 'today will have' + weather[0].description;
       } else {
         statusEl.innerHTML =
           "<i class='error-icon '></i>" + 'error: wheather cannot be found';
@@ -202,7 +196,7 @@ userInputTitle.textContent = searchTerm; // whenever the user searches a city na
   
     }
   };
-  */
+  */ /*
   
   userCitySearch.addEventListener('submit',searchCityWeatherInput);
   populousCities.addEventListener('click', buttonClickHandler);

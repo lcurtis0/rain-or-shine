@@ -33,20 +33,18 @@ fetch(fullURL)
     }
   })
   .then(function (data) {
-    if(response.ok){
-        console.log("is able to connect");
-    } else {
-        console.log("not happening");
-    }
     console.log(data)
     console.log(data.weather[0].main);
-
+    console.log(data.main.temp);
+    console.log(data.main.humidity);
+    console.log(data.wind.speed);
+    console.log(response);
   });
 }
 
 getApi();
 
-/*
+
 
 var searchCityWeatherInput = function(event){ // this function will be called on first when event happens 
     event.preventDefault();
@@ -80,14 +78,13 @@ var searchCityWeatherInput = function(event){ // this function will be called on
         var APIURL = baseOpenWeatherURL + cityName + keyAPI; // the variable will be placed into this URL guiding the user to any repos of the same city 
       
         fetch(APIURL).then(function (response) {
-            if (response.ok) {// .ok is a property that is a boolean saying if the information is transferable
-              console.log(response);
-              console.log(response.cityName);
-             return response.json() // .json will parse the data making it legiable for javascript
+           if (response.ok) {// .ok is a property that is a boolean saying if the information is transferable
+             console.log(response);
+            return response.json() // .json will parse the data making it legiable for javascript
             
               .then(function (data) {  
                 console.log(data);
-                displayCities(data, cityName);
+                displayCities(data.items, cityName);
           })
 
           .catch(function (error) {
@@ -98,7 +95,7 @@ var searchCityWeatherInput = function(event){ // this function will be called on
     
 });
 
-      }
+  }
 
 
 var displayWeather = function (currentWeek, searchTerm) {
@@ -118,7 +115,7 @@ userInputTitle.textContent = searchTerm; // whenever the user searches a city na
         var forcastEl = document.cityInfoCurrentEl.createElement('h2');
     forcastEl = weather[0].main;
 
-        if (parameter.property[0].forcast === Rain) {
+        if (weather[0].main === Rain) {
         statusEl.innerHTML =
           "<i class='rain-icon '></i>" + 'today will have' + weather[0].description;
       } else if (weather[0].main === Clouds){
@@ -127,7 +124,7 @@ userInputTitle.textContent = searchTerm; // whenever the user searches a city na
       } else if (weather[0].main  === Sunshine){
         statusEl.innerHTML =
           "<i class='sunshine-icon '></i>" + 'today will have' + weather[0].description;
-      } else if (weather[0].main  === thunderstorms){
+      } else if (weather[0].main  === Thunderstorms){
         statusEl.innerHTML =
           "<i class='thunderstorms-icon '></i>" + 'today will have' + weather[0].description;
       }  else if (weather[0].main){
@@ -139,15 +136,15 @@ userInputTitle.textContent = searchTerm; // whenever the user searches a city na
       }
 
 
-    var tempEl = document.open-area.cityInfoCurrentEl.createElement('p');
+    var tempEl = document.openAreaDiv.cityInfoCurrentEl.createElement('p');
     // may have to create an if statement to have date be the same or display throgh page 1
-    tempEl = parameter.property[0].temp;
+    tempEl = data.main.temp;
 
-    var windSpeedEl = document.open-area.cityInfoCurrentEl.createElement('p');
-    windSpeedEl = parameter.property[0].windSpeed;
+    var windSpeedEl = document.openAreaDiv.cityInfoCurrentEl.createElement('p');
+    windSpeedEl = data.wind.speed;
 
-    var humidityEl = document.open-area.cityInfoCurrentEl.createElement('p');
-    humidityEl = parameter.property[0].humidity;
+    var humidityEl = document.openAreaDiv.cityInfoCurrentEl.createElement('p');
+    humidityEl = data.main.humidity;
 
     /*
 
@@ -193,10 +190,9 @@ userInputTitle.textContent = searchTerm; // whenever the user searches a city na
               alert('Error: ' + response.statusText + 'date not found');
             }
 
-  
     }
   };
-  */ /*
+  */ 
   
   userCitySearch.addEventListener('submit',searchCityWeatherInput);
   populousCities.addEventListener('click', buttonClickHandler);

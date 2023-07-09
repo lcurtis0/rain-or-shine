@@ -7,8 +7,8 @@
     var userCitySearch = document.querySelector('#user-city-search');
     var inputCityName = document.querySelector('#city-name-input');
     // ^^ This is the input by the user on the search bar
-    var populousCities = document.querySelector('populous-cities');
-    var userInputTitle = document.querySelector('phase-city-user-input-title');
+    var populousCities = document.querySelector('#populous-cities');
+    var userInputTitle = document.querySelector('#phase-city-user-input-title');
 
    // "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=1f607030bc029e79a2a927c3fe3fb558";
     var baseOpenWeatherURL = 'http://api.openweathermap.org/data/2.5/weather?q=' 
@@ -18,12 +18,12 @@
     
 var cityName = 'seattle';
 
-var fullURL = baseOpenWeatherURL + cityName + keyAPI;
+var APIURL = baseOpenWeatherURL + cityName + keyAPI;
     
     function getApi() {
-console.log(fetch(fullURL));
+console.log(fetch(APIURL));
 
-fetch(fullURL)
+fetch(APIURL)
 .then(function (response) {
     return response.json();
     console.log(response);
@@ -34,6 +34,7 @@ fetch(fullURL)
   .then(function (data) {
     console.log(data)
     console.log(data.weather[0].main);
+    console.log(data.weather.main);
     console.log(data.main.temp);
     console.log(data.main.humidity);
     console.log(data.wind.speed);
@@ -74,7 +75,6 @@ var searchCityWeatherInput = function(event){ // this function will be called on
       };
      
       var getCityNameRepos = function (cityNmae) { // Once the cityName have been made into the search bar it will activate this function
-        var APIURL = baseOpenWeatherURL + cityName + keyAPI; // the variable will be placed into this URL guiding the user to any repos of the same city 
     /*  
         fetch(APIURL).then(function (response) {
            if (response.ok) {// .ok is a property that is a boolean saying if the information is transferable
@@ -90,7 +90,26 @@ var searchCityWeatherInput = function(event){ // this function will be called on
     fetch(APIURL).then(function (data) {  
                 console.log(data);
                 displayCities(data.items, cityName);
-        
+
+    })
+                .catch(function (error) {
+                    alert('Unable to connect to Open Weather API');
+                  });
+                  }
+
+
+
+ var getPopularCities = function (populousCities) { 
+
+    fetch(APIURL).then(function (data) {  
+                    console.log(data);
+                    displayCities(data.items, cityName);
+    
+        })
+                    .catch(function (error) {
+                        alert('Unable to connect to Open Weather API');
+                      });
+                      }
 
 
 var displayWeather = function (currentWeek, cityName) {
@@ -100,33 +119,44 @@ var displayWeather = function (currentWeek, cityName) {
     }
 }
 
-//userInputTitle.textContent = cityName; // whenever the user searches a city name it will appear to reminder the user on the page
+userInputTitle.textContent = cityName; // whenever the user searches a city name it will appear to reminder the user on the page
 
 
      //   var cityInfoCurrentEl = document.openAreaDiv.createElement('div'); // creates container for boxes
                                 
     //cityInfoCurrentEl.classList = 'list-item flex-row justify-space-between align-center';
 
+function printWeatherToday() {
+    fetch(APIURL).then(function (response) {
+        return response.json();
+    })
+    
+    .then(function (data) {  
+        console.log(data.weather[0].main);
         var forcastEl = document /*.cityInfoCurrentEl*/.createElement('h2');
-    forcastEl.textContent = data.weather[0].main;
 
-        if (data.weather[0].main === Rain) {
-        statusEl.innerHTML =
+        if (data.weather[0].main === 'Rain') {
+        forcastEl.innerHTML =
           "<i class='rain-icon '></i>" + 'today will have' + weather[0].description;
-      } else if (data.weather[0].main === Clouds){
-        statusEl.innerHTML =
+          console.log(data.weather[0].main);
+      } else if (data.weather[0].main === 'Clouds'){
+        forcastEl.innerHTML =
           "<i class='cloudy-icon '></i>" + 'today will have' + weather[0].description;
-      } else if (data.weather[0].main  === Sunshine){
-        statusEl.innerHTML =
+          console.log(data.weather[0].main);
+      } else if (data.weather[0].main  === 'Sunshine'){
+        forcastEl.innerHTML =
           "<i class='sunshine-icon '></i>" + 'today will have' + weather[0].description;
-      } else if (data.weather[0].main  === Thunderstorms){
-        statusEl.innerHTML =
+          console.log(data.weather[0].main);
+      } else if (data.weather[0].main  === 'Thunderstorms'){
+        forcastEl.innerHTML =
           "<i class='thunderstorms-icon '></i>" + 'today will have' + weather[0].description;
+          console.log(data.weather[0].main);
       }  else if (data.weather[0].main){
-        statusEl.innerHTML =
-          data.weather[0].main + 'today will have' + weather[0].description;
+        forcastEl.innerHTML =
+          "Today is unqiue weather" + data.weather[0].main + 'today will have' + weather[0].description;
+          console.log(data.weather[0].main);
       } else {
-        statusEl.innerHTML =
+        forcastEl.innerHTML =
           "<i class='error-icon '></i>" + 'error: wheather cannot be found';
       }
 
@@ -141,12 +171,12 @@ var displayWeather = function (currentWeek, cityName) {
     var humidityEl = document.openAreaDiv/*.cityInfoCurrentEl*/.createElement('p');
     humidityEl.textContent = data.main.humidity;
 
-})
 
-.catch(function (error) {
-  alert('Unable to connect to Open Weather API');
-});
+    });
+
 }
+
+printWeatherToday();
 
     /*
 

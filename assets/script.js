@@ -5,7 +5,7 @@
     var userFormEl = document.querySelector('#user-form');
     var openAreaDiv = document.querySelector('#open-area');
     var userCitySearch = document.querySelector('#user-city-search');
-    var inputCityName = document.querySelector('#city-name');
+    var inputCityName = document.querySelector('#city-name-input');
     // ^^ This is the input by the user on the search bar
     var populousCities = document.querySelector('populous-cities');
     var userInputTitle = document.querySelector('phase-city-user-input-title');
@@ -13,7 +13,7 @@
    // "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=1f607030bc029e79a2a927c3fe3fb558";
     var baseOpenWeatherURL = 'http://api.openweathermap.org/data/2.5/weather?q=' 
 
-    var keyAPI = '&appid=1f607030bc029e79a2a927c3fe3fb558'
+    var keyAPI = '&appid=ff99ce7a71ef0123ade790b4f039ec6c'
 
     
 var cityName = 'seattle';
@@ -26,10 +26,9 @@ console.log(fetch(fullURL));
 fetch(fullURL)
 .then(function (response) {
     return response.json();
-    if(response.ok){
-        console.log("is able to connect");
-    } else {
-        console.log("not happening");
+    console.log(response);
+    if (response.ok){
+        console.log("it worked");
     }
   })
   .then(function (data) {
@@ -38,13 +37,10 @@ fetch(fullURL)
     console.log(data.main.temp);
     console.log(data.main.humidity);
     console.log(data.wind.speed);
-    console.log(response);
   });
 }
 
 getApi();
-
-
 
 var searchCityWeatherInput = function(event){ // this function will be called on first when event happens 
     event.preventDefault();
@@ -66,85 +62,91 @@ var searchCityWeatherInput = function(event){ // this function will be called on
     // This ection is for the well known city locations i.e. Denvier or New York
     var buttonClickHandler = function (event) {
         var populousCities = event.target.getAttribute('popular-cities'); // popular cities  is the attribute to each button in the HTML doc
+        
       
         if (populousCities) { 
-          getPopularCitiesRepos(populousCities); // when click event happens, depending on the city chosen, 
+          getPopularCities(populousCities); // when click event happens, depending on the city chosen, 
       
-          repoContainerEl.textContent = '';
+         // openAreaDiv.textContent = '';
+         // inputCityName.value  would not apply here because it is not inputed
+
         }
       };
      
       var getCityNameRepos = function (cityNmae) { // Once the cityName have been made into the search bar it will activate this function
         var APIURL = baseOpenWeatherURL + cityName + keyAPI; // the variable will be placed into this URL guiding the user to any repos of the same city 
-      
+    /*  
         fetch(APIURL).then(function (response) {
            if (response.ok) {// .ok is a property that is a boolean saying if the information is transferable
-             console.log(response);
             return response.json() // .json will parse the data making it legiable for javascript
-            
-              .then(function (data) {  
+            console.log(response);
+           }
+        });
+
+    }
+    */   
+   
+    
+    fetch(APIURL).then(function (data) {  
                 console.log(data);
                 displayCities(data.items, cityName);
-          })
-
-          .catch(function (error) {
-            alert('Unable to connect to Open Weather API');
-          });
-      };
-
-    
-});
-
-  }
+        
 
 
-var displayWeather = function (currentWeek, searchTerm) {
+var displayWeather = function (currentWeek, cityName) {
     if (currentWeek.length === 0) {
         openAreaDiv.textContent = 'Enter a location or city in the search bar' + "<i class=' status-icon icon-'></i>";
       return;
     }
 }
 
-userInputTitle.textContent = searchTerm; // whenever the user searches a city name it will appear to reminder the user on the page
+//userInputTitle.textContent = cityName; // whenever the user searches a city name it will appear to reminder the user on the page
 
 
-        var cityInfoCurrentEl = document.openAreaDiv.createElement('div'); // creates container for boxes
+     //   var cityInfoCurrentEl = document.openAreaDiv.createElement('div'); // creates container for boxes
                                 
-    cityInfoCurrentEl.classList = 'list-item flex-row justify-space-between align-center';
+    //cityInfoCurrentEl.classList = 'list-item flex-row justify-space-between align-center';
 
-        var forcastEl = document.cityInfoCurrentEl.createElement('h2');
-    forcastEl = weather[0].main;
+        var forcastEl = document /*.cityInfoCurrentEl*/.createElement('h2');
+    forcastEl.textContent = data.weather[0].main;
 
-        if (weather[0].main === Rain) {
+        if (data.weather[0].main === Rain) {
         statusEl.innerHTML =
           "<i class='rain-icon '></i>" + 'today will have' + weather[0].description;
-      } else if (weather[0].main === Clouds){
+      } else if (data.weather[0].main === Clouds){
         statusEl.innerHTML =
           "<i class='cloudy-icon '></i>" + 'today will have' + weather[0].description;
-      } else if (weather[0].main  === Sunshine){
+      } else if (data.weather[0].main  === Sunshine){
         statusEl.innerHTML =
           "<i class='sunshine-icon '></i>" + 'today will have' + weather[0].description;
-      } else if (weather[0].main  === Thunderstorms){
+      } else if (data.weather[0].main  === Thunderstorms){
         statusEl.innerHTML =
           "<i class='thunderstorms-icon '></i>" + 'today will have' + weather[0].description;
-      }  else if (weather[0].main){
+      }  else if (data.weather[0].main){
         statusEl.innerHTML =
-          weather[0].main + 'today will have' + weather[0].description;
+          data.weather[0].main + 'today will have' + weather[0].description;
       } else {
         statusEl.innerHTML =
           "<i class='error-icon '></i>" + 'error: wheather cannot be found';
       }
 
 
-    var tempEl = document.openAreaDiv.cityInfoCurrentEl.createElement('p');
+    var tempEl = document.openAreaDiv/*.cityInfoCurrentEl*/.createElement('p');
     // may have to create an if statement to have date be the same or display throgh page 1
-    tempEl = data.main.temp;
+    tempEl.textContent = data.main.temp;
 
-    var windSpeedEl = document.openAreaDiv.cityInfoCurrentEl.createElement('p');
-    windSpeedEl = data.wind.speed;
+    var windSpeedEl = document.openAreaDiv/*.cityInfoCurrentEl*/.createElement('p');
+    windSpeedEl.textContent = data.wind.speed;
 
-    var humidityEl = document.openAreaDiv.cityInfoCurrentEl.createElement('p');
-    humidityEl = data.main.humidity;
+    var humidityEl = document.openAreaDiv/*.cityInfoCurrentEl*/.createElement('p');
+    humidityEl.textContent = data.main.humidity;
+
+})
+
+.catch(function (error) {
+  alert('Unable to connect to Open Weather API');
+});
+}
 
     /*
 
@@ -195,7 +197,7 @@ userInputTitle.textContent = searchTerm; // whenever the user searches a city na
   */ 
   
   userCitySearch.addEventListener('submit',searchCityWeatherInput);
-  populousCities.addEventListener('click', buttonClickHandler);
+  populousCities.addEventListener('click',buttonClickHandler);
   
 
 

@@ -1,9 +1,9 @@
 :root {
-    --primary: #d8d8d8;
-    --secondary: #94c3e2;
-    --tertiary: #6696bd;
-    --light-dark: #675c86;
-    --dark: #251e1c;
+    --primary: #a4e6db;
+    --secondary: #17b399;
+    --tertiary: #4984b4;
+    --light-dark: #624ba0;
+    --dark: #1d333b;
     --border-radius: 12px;
 
     --margin-padding:10px;
@@ -17,7 +17,7 @@
     background-color: var(--primary);
     margin:var(--margin-padding);
     padding: var(--margin-padding);
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family:Georgia, 'Times New Roman', Times, serif;
     color: var(--dark);
     line-height: 1.5;
     font-size: 18px;
@@ -37,16 +37,21 @@
   main {
     margin: var(--margin-padding);
   }
+
+  .top-header{
+    background-color: var(--secondary);
+  }
   
   p {
-    font-size: 12px;
+    font-size: 15px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   }
   
    .btn {
-    font-size: 1.5rem;
+    font-size: 18px;
     text-decoration:none;
     padding:var(--margin-padding);
-    width: 100%;
+    width: 180px;
     display: block;
     margin: var(--margin-padding);
     border-radius: var(--border-radius);
@@ -54,15 +59,16 @@
     border: none;
     outline: none;
     background-color: var(--light-dark);
-    box-shadow: 2px 2px var(--dark);
+    box-shadow: 4px 4px var(--dark);
     transform: translate(-1px, -1px);
+    font-family: Georgia, 'Times New Roman', Times, serif;
   }
   
    .btn:hover {
     color: var(--primary);
     background-color: var(--tertiary);
     transform: translate(0, 0);
-    box-shadow: 2px 2px var(--dark);
+    box-shadow: 4px 4px var(--dark);
   }
   
   .btn-inline {
@@ -75,21 +81,21 @@
     border: none;
     outline: none;
     background-color: var(--light-dark);
-    box-shadow: 2px 2px var(--secondary);
+    box-shadow: 4px 4px var(--secondary);
     transform: translate(-1px, -1px);
     display: inline-block;
     width: auto;
     margin-top: var(--margin-padding);
     padding: var(--margin-padding);
     text-decoration: none;
-    font-size: 1.2rem;
+    font-size: 18px;
   }
   
    .btn-back:hover {
     color: var(--primary);
     background-color: var(--tertiary);
     transform: translate(0, 0);
-    box-shadow: 2px 2px var(--dark);
+    box-shadow: 4px 4px var(--dark);
   }
   
   .hero {
@@ -99,23 +105,23 @@
   }
   
   .app-title {
-    font-size: 3rem;
+    font-size: 28px;
     background-color: var(--primary);
     color: var(--dark);
-    padding: 0 10px;
+    padding: var(--margin-padding);
     display: inline-block;
     border-radius: var(--border-radius);
-    box-shadow: 6px 5px var(--light-dark);
+    box-shadow: 4px 4px var(--light-dark);
   }
   
   .list-group {
-    padding: 0;
+    padding: var(--margin-padding);
     list-style: none;
   }
   
   .list-item {
     margin-bottom: 10px;
-    padding: 1.5%;
+    padding: var(--margin-padding);
     border-radius: var(--border-radius);
     background-color: var(--light-dark);
     color: var(--primary);
@@ -152,6 +158,7 @@
     margin:var(--margin-padding);
     border: 3px solid var(--dark);
     border-radius: var(--border-radius);
+    width: 250px;
 
   }
 
@@ -159,11 +166,12 @@
     color: var(--primary);
     background-color: var(--dark);
     padding: var(--margin-padding);
-    border-radius: calc(.18rem - 1px) calc(.18rem - 1px) 0 0;
+    border-radius: var(--border-radius);
   }
   
   .box {
     padding: 2.5%;
+    width: 180px;
   }
   
   /* FORM */
@@ -176,14 +184,14 @@
   .form-label {
     
     font-size: 1.2rem;
-    margin: 5px;
-    color: var(--tertiary);
+    margin: var(--margin-padding);
+    color: var(--secondary);
   }
   
   .form-input {
-    width: 100%;
-    padding: 4px;
-    font-size: 12px;
+    width: 250px;
+    padding: var(--margin-padding);
+    font-size: 18px;
     border: 2px solid var(--light-dark);
     border-radius: var(--border-radius);
   }
@@ -198,10 +206,6 @@
   }
   
   /* FONT UTILS */
-  .text-uppercase {
-    text-transform: uppercase;
-  }
-  
   
   /* FLEX CONTENT */
   .flex-row {

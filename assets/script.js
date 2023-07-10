@@ -122,10 +122,6 @@ var displayWeather = function (currentWeek, cityName) {
 userInputTitle.textContent = cityName; // whenever the user searches a city name it will appear to reminder the user on the page
 
 
-     //   var cityInfoCurrentEl = document.openAreaDiv.createElement('div'); // creates container for boxes
-                                
-    //cityInfoCurrentEl.classList = 'list-item flex-row justify-space-between align-center';
-
 function printWeatherToday() {
     fetch(APIURL).then(function (response) {
         return response.json();
@@ -133,43 +129,55 @@ function printWeatherToday() {
     
     .then(function (data) {  
         console.log(data.weather[0].main);
-        var forcastEl = document /*.cityInfoCurrentEl*/.createElement('h2');
+        var forcastEl = document.createElement('h2');
+        forcastEl.innerText = "hello";
+        //openAreaDiv.append(forcastEl);
 
         if (data.weather[0].main === 'Rain') {
         forcastEl.innerHTML =
-          "<i class='rain-icon '></i>" + 'today will have' + weather[0].description;
+          "<i class='rain-icon '></i>" + ' today will have ' + data.weather[0].description;
           console.log(data.weather[0].main);
+          openAreaDiv.append(forcastEl);
       } else if (data.weather[0].main === 'Clouds'){
         forcastEl.innerHTML =
-          "<i class='cloudy-icon '></i>" + 'today will have' + weather[0].description;
+          "<i class='cloudy-icon '></i>" + 'today will have' + data.weather[0].description;
           console.log(data.weather[0].main);
+          openAreaDiv.append(forcastEl);
       } else if (data.weather[0].main  === 'Sunshine'){
         forcastEl.innerHTML =
-          "<i class='sunshine-icon '></i>" + 'today will have' + weather[0].description;
+          "<i class='sunshine-icon '></i>" + 'today will have' + data.weather[0].description;
           console.log(data.weather[0].main);
+          openAreaDiv.append(forcastEl);
       } else if (data.weather[0].main  === 'Thunderstorms'){
         forcastEl.innerHTML =
-          "<i class='thunderstorms-icon '></i>" + 'today will have' + weather[0].description;
+          "<i class='thunderstorms-icon '></i>" + 'today will have' + data.weather[0].description;
           console.log(data.weather[0].main);
+          openAreaDiv.append(forcastEl);
       }  else if (data.weather[0].main){
         forcastEl.innerHTML =
-          "Today is unqiue weather" + data.weather[0].main + 'today will have' + weather[0].description;
+          "Today is unqiue weather" + data.weather[0].main + 'today will have' + data.weather[0].description;
           console.log(data.weather[0].main);
+          openAreaDiv.append(forcastEl);
       } else {
         forcastEl.innerHTML =
           "<i class='error-icon '></i>" + 'error: wheather cannot be found';
+          openAreaDiv.append(forcastEl);
       }
 
 
-    var tempEl = document.openAreaDiv/*.cityInfoCurrentEl*/.createElement('p');
+    var tempEl = document.createElement('p');
+    //tempEl.classList('')
     // may have to create an if statement to have date be the same or display throgh page 1
     tempEl.textContent = data.main.temp;
+    openAreaDiv.append(tempEl);
 
-    var windSpeedEl = document.openAreaDiv/*.cityInfoCurrentEl*/.createElement('p');
+    var windSpeedEl = document.createElement('p');
     windSpeedEl.textContent = data.wind.speed;
+    openAreaDiv.append(windSpeedEl);
 
-    var humidityEl = document.openAreaDiv/*.cityInfoCurrentEl*/.createElement('p');
+    var humidityEl = document.createElement('p');
     humidityEl.textContent = data.main.humidity;
+    openAreaDiv.append(humidityEl);
 
 
     });

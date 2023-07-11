@@ -48,6 +48,7 @@ var searchCityWeatherInput = function(event){ // this function will be called on
     if (cityName){
 
         getCityNameInfo(cityName); // This will set the value of cityName to getCityNameInfo function thus not needing to restablish the value
+        daysAfterPrediction(cityName);
 
         openAreaDiv.textContent = '';
         inputCityName.value = '';
@@ -57,12 +58,13 @@ var searchCityWeatherInput = function(event){ // this function will be called on
     }
 }
     // This ection is for the well known city locations i.e. Denvier or New York
-    var buttonClickHandler = function (event) {
+var buttonClickHandler = function (event) {
         var populousCities = event.target.getAttribute('popular-cities'); // popular cities  is the attribute to each button in the HTML doc
         
       
         if (populousCities) { 
           getPopularCities(populousCities); // when click event happens it creates a value and uses it as a place holder
+          daysAfterPrediction(populousCities);
 
          // openAreaDiv.textContent = '';
          // inputCityName.value would not apply here because it is not inputed into search bar
@@ -70,7 +72,7 @@ var searchCityWeatherInput = function(event){ // this function will be called on
         }
       };
      
-    var getCityNameInfo = function (cityName) { // Once the cityName have been made into the search bar it will activate this function
+var getCityNameInfo = function (cityName) { // Once the cityName have been made into the search bar it will activate this function
         var APIURL = baseOpenWeatherURL + cityName + keyAPI;
    
     fetch(APIURL)
@@ -131,11 +133,20 @@ var searchCityWeatherInput = function(event){ // this function will be called on
       humidityEl.textContent = data.main.humidity;
       openAreaDiv.append(humidityEl);
 
+    var latNum = data.coord.lat;
+
+    var lonNum = data.coord.lon;
+
+    console.log(lonNum);
+    console.log(latNum);
+    daysAfterPrediction(latNum);
+    daysAfterPrediction(lonNum);
+
     })
     
       }
 
- var getPopularCities = function (populousCities) { 
+var getPopularCities = function (populousCities) { 
     var APIURL = baseOpenWeatherURL + populousCities + keyAPI;
 
     fetch(APIURL)
@@ -149,27 +160,26 @@ var searchCityWeatherInput = function(event){ // this function will be called on
 
         if (data.weather[0].main === 'Rain') {
         forcastEl.innerHTML =
-          "<i class='rain-icon '></i>" + ' today will have ' + data.weather[0].description;
+          "<i class='rain-icon '></i>" + ' today will have ' + data.weather[0].main + "<p>" + data.weather[0].description +"</p>";
           console.log(data.weather[0].main);
           openAreaDiv.append(forcastEl);
       } else if (data.weather[0].main === 'Clouds'){
         forcastEl.innerHTML =
-          "<i class='cloudy-icon '></i>" + 'today will have' + data.weather[0].description;
+          "<i class='cloudy-icon '></i>" + 'today will have ' + data.weather[0].main + "<p>" + data.weather[0].description +"</p>";
           console.log(data.weather[0].main);
           openAreaDiv.append(forcastEl);
       } else if (data.weather[0].main  === 'Clear'){
         forcastEl.innerHTML =
-          "<i class='sunshine-icon '></i>" + 'today will have' + data.weather[0].description;
+          "<i class='sunshine-icon '></i>" + 'today will have ' + data.weather[0].main + "<p>" + data.weather[0].description +"</p>";
           console.log(data.weather[0].main);
           openAreaDiv.append(forcastEl);
       } else if (data.weather[0].main  === 'Thunderstorms'){
         forcastEl.innerHTML =
-          "<i class='thunderstorms-icon '></i>" + 'today will have' + data.weather[0].description;
-          console.log(data.weather[0].main);
+          "<i class='thunderstorms-icon '></i>" + 'today will have ' + data.weather[0].main + "<p>" + data.weather[0].description +"</p>";
           openAreaDiv.append(forcastEl);
       }  else if (data.weather[0].main){
         forcastEl.innerHTML =
-          "Today is unqiue weather" + data.weather[0].main + 'today will have' + data.weather[0].description;
+          "Today is unqiue weather" + 'today will have ' + data.weather[0].main + "<p>" + data.weather[0].description +"</p>";
           console.log(data.weather[0].main);
           openAreaDiv.append(forcastEl);
       } else {
@@ -193,6 +203,15 @@ var searchCityWeatherInput = function(event){ // this function will be called on
       humidityEl.textContent = data.main.humidity;
       openAreaDiv.append(humidityEl);
 
+      var latNum = data.coord.lat;
+
+      var lonNum = data.coord.lon;
+
+      console.log(lonNum);
+      console.log(latNum);
+      daysAfterPrediction(latNum);
+      daysAfterPrediction(lonNum);
+
     })
     
       }
@@ -206,96 +225,61 @@ var displayWeather = function (currentWeek, cityName) {
 }
 
 
-/*
-
-function printWeatherToday() {
- //   fetch(APIURL).then(function (response) {
-  //      return response.json();
-   // })
-    
-    (function (data) {  
-        console.log(data.weather[0].main);
-        var forcastEl = document.createElement('h2');
-
-        if (data.weather[0].main === 'Rain') {
-        forcastEl.innerHTML =
-          "<i class='rain-icon '></i>" + ' today will have ' + data.weather[0].description;
-          console.log(data.weather[0].main);
-          openAreaDiv.append(forcastEl);
-      } else if (data.weather[0].main === 'Clouds'){
-        forcastEl.innerHTML =
-          "<i class='cloudy-icon '></i>" + 'today will have' + data.weather[0].description;
-          console.log(data.weather[0].main);
-          openAreaDiv.append(forcastEl);
-      } else if (data.weather[0].main  === 'Clear'){
-        forcastEl.innerHTML =
-          "<i class='sunshine-icon '></i>" + 'today will have' + data.weather[0].description;
-          console.log(data.weather[0].main);
-          openAreaDiv.append(forcastEl);
-      } else if (data.weather[0].main  === 'Thunderstorms'){
-        forcastEl.innerHTML =
-          "<i class='thunderstorms-icon '></i>" + 'today will have' + data.weather[0].description;
-          console.log(data.weather[0].main);
-          openAreaDiv.append(forcastEl);
-      }  else if (data.weather[0].main){
-        forcastEl.innerHTML =
-          "Today is unqiue weather" + data.weather[0].main + 'today will have' + data.weather[0].description;
-          console.log(data.weather[0].main);
-          openAreaDiv.append(forcastEl);
-      } else {
-        forcastEl.innerHTML =
-          "<i class='error-icon '></i>" + 'error: wheather cannot be found';
-          openAreaDiv.append(forcastEl);
-      }
-
-
-    var tempEl = document.createElement('p');
-    //tempEl.classList('')
-    // may have to create an if statement to have date be the same or display throgh page 1
-    tempEl.textContent = data.main.temp;
-    openAreaDiv.append(tempEl);
-
-    var windSpeedEl = document.createElement('p');
-    windSpeedEl.textContent = data.wind.speed;
-    openAreaDiv.append(windSpeedEl);
-
-    var humidityEl = document.createElement('p');
-    humidityEl.textContent = data.main.humidity;
-    openAreaDiv.append(humidityEl);
-
-
-    });
-
-}
-
-
-/*
-
-function daysAfterPrediction (){
-
-fetch(APIURL).then(function (response) {
+var daysAfterPrediction = function (cityName) {
+    var fullForecastURL = baseOpenForcastURL + "lat=" + latNum + "&" + "lon=" + lonNum + keyAPI;
+fetch(fullForecastURL).then(function (response) {
     if(response.ok){
         console.log(response);
+        console.log("response is working");
     } else{
-        console.log(error);
+        console.log("error");
     }
     return response.json();
 })
 
 .then(function (data) {  
-    var latNum = data.coord.lat;
+console.log(data);
 
-var lonNum = data.coord.lon;
-    var fullForecastURL = baseOpenForcastURL + "lat=" + latNum + "&" + "lon=" + lonNum + keyAPI;
-console.log(fullForecastURL);
 
-    console.log(lonNum);
-    console.log(latNum);
 })
 
-
-
 }
+
+for (var i = 0; i < 5; i++){
+    
+  var weekDay = 0; 
+}
+/*
+for (var i = 0; i < repos.length; i++) {
+    // What is the result of this string concatenation?
+    // TODO: Write your answer here
+    var repoName = repos[i].owner.login + '/' + repos[i].name;
+
+    var repoEl = document.createElement('div');
+    repoEl.classList = 'list-item flex-row justify-space-between align-center';
+
+    var titleEl = document.createElement('span');
+    titleEl.textContent = repoName;
+
+    repoEl.appendChild(titleEl);
+
+    var statusEl = document.createElement('span');
+    statusEl.classList = 'flex-row align-center';
+
+    if (repos[i].open_issues_count > 0) {
+      statusEl.innerHTML =
+        "<i class='fas fa-times status-icon icon-danger'></i>" + repos[i].open_issues_count + ' issue(s)';
+    } else {
+      statusEl.innerHTML = "<i class='fas fa-check-square status-icon icon-success'></i>";
+    }
+
+    repoEl.appendChild(statusEl);
+
+    repoContainerEl.appendChild(repoEl);
+  }
+};
+
+
 
 daysAfterPrediction ();
 
@@ -369,6 +353,6 @@ each with a display of name, date, weather, weather icon,
 
  For each day will be a box and have the stats inside of them
 
- for 
+ for loop for each of the days 
 */ 
 

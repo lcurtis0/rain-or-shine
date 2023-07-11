@@ -13,13 +13,12 @@
    // "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=1f607030bc029e79a2a927c3fe3fb558";
     var baseOpenWeatherURL = 'http://api.openweathermap.org/data/2.5/weather?q=' 
 
+    var baseOpenForcastURL = 'http://api.openweathermap.org/data/2.5/forecast?'
+
     var keyAPI = '&appid=ff99ce7a71ef0123ade790b4f039ec6c'
-
     
-var cityName = 'seattle';
-
-var APIURL = baseOpenWeatherURL + cityName + keyAPI;
-    
+/*
+ 
     function getApi() {
 console.log(fetch(APIURL));
 
@@ -33,15 +32,13 @@ fetch(APIURL)
   })
   .then(function (data) {
     console.log(data)
-    console.log(data.weather[0].main);
-    console.log(data.weather.main);
     console.log(data.main.temp);
     console.log(data.main.humidity);
     console.log(data.wind.speed);
   });
 }
-
 getApi();
+*/
 
 var searchCityWeatherInput = function(event){ // this function will be called on first when event happens 
     event.preventDefault();
@@ -59,55 +56,45 @@ var searchCityWeatherInput = function(event){ // this function will be called on
         alert("Invalid: The user must enter a valid location");
     }
 }
-
     // This ection is for the well known city locations i.e. Denvier or New York
     var buttonClickHandler = function (event) {
         var populousCities = event.target.getAttribute('popular-cities'); // popular cities  is the attribute to each button in the HTML doc
         
       
         if (populousCities) { 
-          getPopularCities(populousCities); // when click event happens, depending on the city chosen, 
-      
+          getPopularCities(populousCities); // when click event happens it creates a value and uses it as a place holder
+
          // openAreaDiv.textContent = '';
-         // inputCityName.value  would not apply here because it is not inputed
+         // inputCityName.value would not apply here because it is not inputed into search bar
 
         }
       };
      
-      var getCityNameRepos = function (cityNmae) { // Once the cityName have been made into the search bar it will activate this function
-    /*  
-        fetch(APIURL).then(function (response) {
-           if (response.ok) {// .ok is a property that is a boolean saying if the information is transferable
-            return response.json() // .json will parse the data making it legiable for javascript
-            console.log(response);
-           }
-        });
-
-    }
-    */   
+      var getCityNameRepos = function (cityName) { // Once the cityName have been made into the search bar it will activate this function
+        var APIURL = baseOpenWeatherURL + cityName + keyAPI;
    
-    
     fetch(APIURL).then(function (data) {  
-                console.log(data);
+                console.log("fetch cityName is working");
+                userInputTitle.textContent = " : " + cityName; // whenever the user searches a city name it will appear to reminder the user on the page
                 displayCities(data.items, cityName);
 
     })
                 .catch(function (error) {
-                    alert('Unable to connect to Open Weather API');
+                    alert('Unable to connect to Open Weather API (search)');
                   });
                   }
 
 
 
  var getPopularCities = function (populousCities) { 
-
-    fetch(APIURL).then(function (data) {  
-                    console.log(data);
-                    displayCities(data.items, cityName);
+    var APIURL = baseOpenWeatherURL + populousCities + keyAPI;
+        fetch(APIURL).then(function (data) {  
+            console.log("fetch populousCities is working");
+            displayCities(data.items, populousCities);
     
         })
                     .catch(function (error) {
-                        alert('Unable to connect to Open Weather API');
+                        alert('Unable to connect to Open Weather API (button)');
                       });
                       }
 
@@ -119,19 +106,17 @@ var displayWeather = function (currentWeek, cityName) {
     }
 }
 
-userInputTitle.textContent = cityName; // whenever the user searches a city name it will appear to reminder the user on the page
+
 
 
 function printWeatherToday() {
-    fetch(APIURL).then(function (response) {
-        return response.json();
-    })
+ //   fetch(APIURL).then(function (response) {
+  //      return response.json();
+   // })
     
-    .then(function (data) {  
+    (function (data) {  
         console.log(data.weather[0].main);
         var forcastEl = document.createElement('h2');
-        forcastEl.innerText = "hello";
-        //openAreaDiv.append(forcastEl);
 
         if (data.weather[0].main === 'Rain') {
         forcastEl.innerHTML =
@@ -143,7 +128,7 @@ function printWeatherToday() {
           "<i class='cloudy-icon '></i>" + 'today will have' + data.weather[0].description;
           console.log(data.weather[0].main);
           openAreaDiv.append(forcastEl);
-      } else if (data.weather[0].main  === 'Sunshine'){
+      } else if (data.weather[0].main  === 'Clear'){
         forcastEl.innerHTML =
           "<i class='sunshine-icon '></i>" + 'today will have' + data.weather[0].description;
           console.log(data.weather[0].main);
@@ -186,11 +171,40 @@ function printWeatherToday() {
 
 printWeatherToday();
 
+
+/*
+
+function daysAfterPrediction (){
+
+fetch(APIURL).then(function (response) {
+    if(response.ok){
+        console.log(response);
+    } else{
+        console.log(error);
+    }
+    return response.json();
+})
+
+.then(function (data) {  
+    var latNum = data.coord.lat;
+
+var lonNum = data.coord.lon;
+    var fullForecastURL = baseOpenForcastURL + "lat=" + latNum + "&" + "lon=" + lonNum + keyAPI;
+console.log(fullForecastURL);
+
+    console.log(lonNum);
+    console.log(latNum);
+})
+
+}
+
+daysAfterPrediction ();
+
+//https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}.
+
     /*
 
  for (var i = 1; i < 6; i++) { //This for loop will cycle through the dates after the current date
-
-    var afterDay = document.open-area.createElement('div');
 
     var futureDateDiv = document.open-area.createElement('div');
 
@@ -253,5 +267,7 @@ each with a display of name, date, weather, weather icon,
  wind speed, tempture, and humitaty 
 
  For each day will be a box and have the stats inside of them
+
+ for 
 */ 
 

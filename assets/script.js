@@ -139,7 +139,7 @@ var getCityNameInfo = function (cityName) { // Once the cityName have been made 
 
     console.log(lonNum);
     console.log(latNum);
-    daysAfterPrediction(latNum);
+    daysAfterPrediction(latNum,lonNum);
     daysAfterPrediction(lonNum);
 
     })
@@ -225,7 +225,7 @@ var displayWeather = function (currentWeek, cityName) {
 }
 
 
-var daysAfterPrediction = function (cityName) {
+var daysAfterPrediction = function (latNum) {
     var fullForecastURL = baseOpenForcastURL + "lat=" + latNum + "&" + "lon=" + lonNum + keyAPI;
 fetch(fullForecastURL).then(function (response) {
     if(response.ok){

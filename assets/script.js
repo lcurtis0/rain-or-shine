@@ -140,7 +140,6 @@ var getCityNameInfo = function (cityName) { // Once the cityName have been made 
     console.log(lonNum);
     console.log(latNum);
     daysAfterPrediction(latNum,lonNum);
-    daysAfterPrediction(lonNum);
 
     })
     
@@ -209,8 +208,7 @@ var getPopularCities = function (populousCities) {
 
       console.log(lonNum);
       console.log(latNum);
-      daysAfterPrediction(latNum);
-      daysAfterPrediction(lonNum);
+      daysAfterPrediction(latNum,lonNum);
 
     })
     
@@ -225,7 +223,7 @@ var displayWeather = function (currentWeek, cityName) {
 }
 
 
-var daysAfterPrediction = function (latNum) {
+var daysAfterPrediction = function (latNum,lonNum) {
     var fullForecastURL = baseOpenForcastURL + "lat=" + latNum + "&" + "lon=" + lonNum + keyAPI;
 fetch(fullForecastURL).then(function (response) {
     if(response.ok){
@@ -245,9 +243,9 @@ console.log(data);
 
 }
 
-for (var i = 0; i < 5; i++){
+for (var i = 0; i < 5; i+8){
     
-  var weekDay = 0; 
+  var weekDay = list[i].weather.main + repos[i].name; 
 }
 /*
 for (var i = 0; i < repos.length; i++) {

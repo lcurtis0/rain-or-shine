@@ -125,8 +125,8 @@ var getCityNameInfo = function (cityName) { // Once the cityName have been made 
             }
 
             var dateEl = document.createElement('h3');
-            dateEl.textContent = data.main.temp;
-            openAreaDiv.append("temp: " + data.main.temp + " F ");
+            dateEl.textContent = data.main.dt;
+            openAreaDiv.append("date: " + data.main.dt;
 
 
             var tempEl = document.createElement('p');
@@ -253,7 +253,6 @@ var daysAfterPrediction = function (latNum, lonNum) {
             console.log(data);
 
             var list = data.list;
-            console.log(list[4].weather.main);
 
             for (var i = 0; i < list.length; i ++) {
 

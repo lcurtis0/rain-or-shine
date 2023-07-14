@@ -1,7 +1,5 @@
 
 
-
-
 var userFormEl = document.querySelector('#user-form');
 var openAreaDiv = document.querySelector('#open-area');
 var userCitySearch = document.querySelector('#user-city-search');
@@ -19,28 +17,6 @@ var keyAPI = '&appid=ff99ce7a71ef0123ade790b4f039ec6c'
 
 var keyAPIforecast = 'ff99ce7a71ef0123ade790b4f039ec6c'
 
-/*
- 
-    function getApi() {
-console.log(fetch(APIURL));
-
-fetch(APIURL)
-.then(function (response) {
-    return response.json();
-    console.log(response);
-    if (response.ok){
-        console.log("it worked");
-    }
-  })
-  .then(function (data) {
-    console.log(data)
-    console.log(data.main.temp);
-    console.log(data.main.humidity);
-    console.log(data.wind.speed);
-  });
-}
-getApi();
-*/
 
 var searchCityWeatherInput = function (event) { // this function will be called on first when event happens 
     event.preventDefault();
@@ -125,9 +101,8 @@ var getCityNameInfo = function (cityName) { // Once the cityName have been made 
             }
 
             var dateEl = document.createElement('h3');
-            dateEl.textContent = data.main.dt;
-            openAreaDiv.append("date: " + data.main.dt;
-
+            dateEl.textContent = dayjs.unix(data.dt).format('MMM D, YYYY');
+            openAreaDiv.append("date: " + dayjs.unix(data.dt).format('MMM D, YYYY'));
 
             var tempEl = document.createElement('p');
             //tempEl.classList('')
@@ -201,6 +176,10 @@ var getPopularCities = function (populousCities) {
                 openAreaDiv.append(forcastEl);
             }
 
+            var dateEl = document.createElement('h3');
+            dateEl.textContent = dayjs.unix(data.dt).format('MMM D, YYYY');
+            openAreaDiv.append("date: " + dayjs.unix(data.dt).format('MMM D, YYYY'));
+
             var tempEl = document.createElement('p');
             //tempEl.classList('')
             // may have to create an if statement to have date be the same or display throgh page 1
@@ -265,7 +244,7 @@ var daysAfterPrediction = function (latNum, lonNum) {
                     var windDay = list[i].wind.speed;
                     var humidityDay = list[i].main.humidity;
                     var weatherIconDay = list[i].weather[0].icon;
-                    var dateDay = 0;
+                    var dateDay = list[i].dt_txt;
 
                     var weekDayDiv = document.createElement('div');
                     weekDayDiv.classList = 'weekDaybox list-item flex-row justify-space-between align-center';
@@ -309,6 +288,8 @@ var daysAfterPrediction = function (latNum, lonNum) {
                         weekDayDiv.append(titleWeather);
                     }
 
+                    weekDayDiv.append('date: ' + dateDay)
+
                     weekDayDiv.append('temp: ' + tempDay);
 
                     weekDayDiv.append('wind: ' + windDay);
@@ -327,74 +308,9 @@ var daysAfterPrediction = function (latNum, lonNum) {
 
 
 
-//https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}.
-
-/*
-
-for (var i = 1; i < 6; i++) { //This for loop will cycle through the dates after the current date
-
-var futureDateDiv = document.open-area.createElement('div');
-
-var weekDate = month + day[i].year + '/' + .year;
-
-var forcastEl = document.open-area.futureDateDiv.createElement('h2');
-forcastEl = parameter.property[i].forcast;
-
-    if (parameter.property[0].forcast === rain) {
-    statusEl.innerHTML =
-      "<i class='rain-icon '></i>" + 'today will have' + percentage + 'chance of rain';
-  } else if (parameter.property[0].forcast === cloudy){
-    statusEl.innerHTML =
-      "<i class='cloudy-icon '></i>" + 'today will have' + percentage + 'chance of cloudy';
-  } else if (parameter.property[0].forcast === sunshine){
-    statusEl.innerHTML =
-      "<i class='sunshine-icon '></i>" + 'today will have' + percentage + 'chance of sunshine';
-  } else if (parameter.property[0].forcast === thunderstorms){
-    statusEl.innerHTML =
-      "<img src='https://openweathermap.org/img/wn/" + wetherIconDay + ".png'>" + 'today will have' + percentage + 'chance of thunderstorms';
-  } else {
-    statusEl.innerHTML =
-      "<i class='error-icon '></i>" + 'error: wheather cannot be found';
-  }
-
-var tempEl = document.open-area.futureDateDiv.createElement('p');
-tempEl = parameter.property[i].temp;
-
-var windSpeedEl = document.open-area.futureDateDiv.createElement('p');
-windSpeedEl = parameter.property[i].windSpeed;
-
-var humidityEl = document.open-area.futureDateDiv.createElement('p');
-humidityEl = parameter.property[i].humidity;
-
-              });
-        } else {
-          alert('Error: ' + response.statusText + 'date not found');
-        }
-
-}
-};
-*/
 
 userCitySearch.addEventListener('submit', searchCityWeatherInput);
 populousCities.addEventListener('click', buttonClickHandler);
 
 
-
-
-/*
-
-Plan of attack 
-
-Have a search bar that serches city repos 
-
-...
-
-after everything is set up, have a course of 5 days 
-each with a display of name, date, weather, weather icon,
- wind speed, tempture, and humitaty 
-
- For each day will be a box and have the stats inside of them
-
- for loop for each of the days 
-*/
 

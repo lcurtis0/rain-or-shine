@@ -42,7 +42,6 @@ var buttonClickHandler = function (event) {
 
     if (populousCities) {
         getPopularCities(populousCities); // when click event happens it creates a value and uses it as a place holder
-        daysAfterPrediction(populousCities);
 
         // openAreaDiv.textContent = '';
         // inputCityName.value would not apply here because it is not inputed into search bar

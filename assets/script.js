@@ -321,7 +321,7 @@ function appendStorepopulousCities(populousCities) {
     } else if (searchedrecentArray.length > 5){
         recentSearches.remove(lastWeather);
     }
-   // recentSearches.remove(lastWeather); //.pop states that the earliest part added to the array will be selected and removed
+   // recentSearches.remove(lastWeather); 
 }
        // localStorage.setitem("areaSearched", JSON.stringify(populousCities + ));
 
@@ -340,21 +340,7 @@ function appendStorecityName(cityName) {
         recentSearches.append(lastWeather);
     }
 }
-/*
-function renderAddressButtons() {
-    var storedAddresses = JSON.parse(localStorage.getItem("myAddress"));
-    if (storedAddresses !== null) {
-        $(".historic-container").removeClass("is-hidden");
-        $(addressContainer).text("");
-        for (var i = 0; i < storedAddresses.length; i++) {
-            var button = document.createElement("button");
-            $(button).text(storedAddresses[i].address + ", " + storedAddresses[i].currency);
-            $(button).addClass("button  is-link m-4");
-            $(addressContainer).append(button);
-        }
-    }
 
-*/
 
 userCitySearch.addEventListener('submit', searchCityWeatherInput);
 populousCities.addEventListener('click', buttonClickHandler);

@@ -18,6 +18,7 @@ var keyAPI = '&appid=ff99ce7a71ef0123ade790b4f039ec6c'
 var keyAPIforecast = 'ff99ce7a71ef0123ade790b4f039ec6c'
 
 
+
 var searchCityWeatherInput = function (event) { // this function will be called on first when event happens 
     event.preventDefault();
     var cityName = inputCityName.value.trim();
@@ -26,7 +27,6 @@ var searchCityWeatherInput = function (event) { // this function will be called 
     if (cityName) {
 
         getCityNameInfo(cityName); // This will set the value of cityName to getCityNameInfo function thus not needing to restablish the value
-        daysAfterPrediction(cityName);
 
         openAreaDiv.textContent = '';
         inputCityName.value = '';
@@ -42,7 +42,6 @@ var buttonClickHandler = function (event) {
 
     if (populousCities) {
         getPopularCities(populousCities); // when click event happens it creates a value and uses it as a place holder
-        daysAfterPrediction(populousCities);
 
         // openAreaDiv.textContent = '';
         // inputCityName.value would not apply here because it is not inputed into search bar
@@ -70,22 +69,22 @@ var getCityNameInfo = function (cityName) { // Once the cityName have been made 
 
             if (data.weather[0].main === 'Rain') {
                 forcastEl.innerHTML =
-                "<img src='https://openweathermap.org/img/wn/" + weatherIconDay + ".png'>" + ' today will have ' + data.weather[0].description;
+                    "<img src='https://openweathermap.org/img/wn/" + weatherIconDay + ".png'>" + ' today will have ' + data.weather[0].description;
                 console.log(data.weather[0].main);
                 openAreaDiv.append(forcastEl);
             } else if (data.weather[0].main === 'Clouds') {
                 forcastEl.innerHTML =
-                "<img src='https://openweathermap.org/img/wn/" + weatherIconDay + ".png'>" + 'today will have' + data.weather[0].description;
+                    "<img src='https://openweathermap.org/img/wn/" + weatherIconDay + ".png'>" + 'today will have' + data.weather[0].description;
                 console.log(data.weather[0].main);
                 openAreaDiv.append(forcastEl);
             } else if (data.weather[0].main === 'Clear') {
                 forcastEl.innerHTML =
-                "<img src='https://openweathermap.org/img/wn/" + weatherIconDay + ".png'>" + data.weather[0].description;
+                    "<img src='https://openweathermap.org/img/wn/" + weatherIconDay + ".png'>" + data.weather[0].description;
                 console.log(data.weather[0].main);
                 openAreaDiv.append(forcastEl);
             } else if (data.weather[0].main === 'Thunderstorms') {
                 forcastEl.innerHTML =
-                "<img src='https://openweathermap.org/img/wn/" + weatherIconDay + ".png'>" + 'today will have' + data.weather[0].description;
+                    "<img src='https://openweathermap.org/img/wn/" + weatherIconDay + ".png'>" + 'today will have' + data.weather[0].description;
                 console.log(data.weather[0].main);
                 openAreaDiv.append(forcastEl);
             } else if (data.weather[0].main) {
@@ -95,7 +94,7 @@ var getCityNameInfo = function (cityName) { // Once the cityName have been made 
                 openAreaDiv.append(forcastEl);
             } else {
                 forcastEl.innerHTML =
-                "<img src='https://openweathermap.org/img/wn/" + weatherIconDay + ".png'>" + 'error: wheather cannot be found';
+                    "<img src='https://openweathermap.org/img/wn/" + weatherIconDay + ".png'>" + 'error: wheather cannot be found';
                 alert("Error: wheather cannot be found ")
                 openAreaDiv.append(forcastEl);
             }
@@ -116,7 +115,7 @@ var getCityNameInfo = function (cityName) { // Once the cityName have been made 
 
             var humidityEl = document.createElement('p');
             humidityEl.textContent = data.main.humidity;
-            openAreaDiv.append("humidity: " +  data.main.humidity);
+            openAreaDiv.append("humidity: " + data.main.humidity);
 
             var latNum = data.coord.lat;
 
@@ -131,7 +130,7 @@ var getCityNameInfo = function (cityName) { // Once the cityName have been made 
 }
 
 var getPopularCities = function (populousCities) {
-    var APIURL = baseOpenWeatherURL + populousCities + keyAPI  + "&units=imperial";
+    var APIURL = baseOpenWeatherURL + populousCities + keyAPI + "&units=imperial";
 
     fetch(APIURL)
         .then(function (response) {
@@ -147,26 +146,26 @@ var getPopularCities = function (populousCities) {
 
             if (data.weather[0].main === 'Rain') {
                 forcastEl.innerHTML =
-                "<img src='https://openweathermap.org/img/wn/" + weatherIconDay + ".png'>" + ' today will have ' + data.weather[0].main + "<p>" + data.weather[0].description + "</p>";
+                    "<img src='https://openweathermap.org/img/wn/" + weatherIconDay + ".png'>" + ' today will have ' + data.weather[0].main + "<p>" + data.weather[0].description + "</p>";
                 console.log(data.weather[0].main);
                 openAreaDiv.append(forcastEl);
             } else if (data.weather[0].main === 'Clouds') {
                 forcastEl.innerHTML =
-                "<img src='https://openweathermap.org/img/wn/" + weatherIconDay + ".png'>" + 'today will have ' + data.weather[0].main + "<p>" + data.weather[0].description + "</p>";
+                    "<img src='https://openweathermap.org/img/wn/" + weatherIconDay + ".png'>" + 'today will have ' + data.weather[0].main + "<p>" + data.weather[0].description + "</p>";
                 console.log(data.weather[0].main);
                 openAreaDiv.append(forcastEl);
             } else if (data.weather[0].main === 'Clear') {
                 forcastEl.innerHTML =
-                "<img src='https://openweathermap.org/img/wn/" + weatherIconDay + ".png'>" + 'today will have ' + data.weather[0].main + "<p>" + data.weather[0].description + "</p>";
+                    "<img src='https://openweathermap.org/img/wn/" + weatherIconDay + ".png'>" + 'today will have ' + data.weather[0].main + "<p>" + data.weather[0].description + "</p>";
                 console.log(data.weather[0].main);
                 openAreaDiv.append(forcastEl);
             } else if (data.weather[0].main === 'Thunderstorms') {
                 forcastEl.innerHTML =
-                "<img src='https://openweathermap.org/img/wn/" + weatherIconDay + ".png'>" + 'today will have ' + data.weather[0].main + "<p>" + data.weather[0].description + "</p>";
+                    "<img src='https://openweathermap.org/img/wn/" + weatherIconDay + ".png'>" + 'today will have ' + data.weather[0].main + "<p>" + data.weather[0].description + "</p>";
                 openAreaDiv.append(forcastEl);
             } else if (data.weather[0].main) {
                 forcastEl.innerHTML =
-                "<img src='https://openweathermap.org/img/wn/" + weatherIconDay + ".png'>" + 'today will have ' + data.weather[0].main + "<p>" + data.weather[0].description + "</p>";
+                    "<img src='https://openweathermap.org/img/wn/" + weatherIconDay + ".png'>" + 'today will have ' + data.weather[0].main + "<p>" + data.weather[0].description + "</p>";
                 console.log(data.weather[0].main);
                 openAreaDiv.append(forcastEl);
             } else {
@@ -201,7 +200,8 @@ var getPopularCities = function (populousCities) {
             console.log(lonNum);
             console.log(latNum);
             daysAfterPrediction(latNum, lonNum);
-
+            appendStorepopulousCities(populousCities);
+            localStorage.setItem("areaSearched", populousCities);
         })
 
 }
@@ -213,27 +213,29 @@ var displayWeather = function (currentWeek, cityName) {
     }
 }
 
-
 var daysAfterPrediction = function (latNum, lonNum) {
     //https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key} 
     var fullForecastURL = baseOpenForcastURL + "lat=" + latNum + "&lon=" + lonNum + "&appid=" + keyAPIforecast + "&units=imperial";
+    console.log(fullForecastURL)
     // seprate URL has to be made different days and must use latitude and longitude to find location
-    fetch(fullForecastURL).then(function (response) {
-        if (response.ok) {
-            console.log(response);
-            console.log("response is working");
-        } else {
-            console.log("error");
-        }
-        return response.json();
-    })
+    fetch(fullForecastURL)
+        .then(function (response) {
+            if (response.ok) {
+                console.log(response);
+                console.log("response is working");
+            } else {
+                console.log("error");
+            }
+            return response.json();
+        })
 
         .then(function (data) {
             console.log(data);
 
             var list = data.list;
+            console.log(list);
 
-            for (var i = 0; i < list.length; i ++) {
+            for (var i = 0; i < list.length; i++) {
 
                 if (list[i].dt_txt.includes('06:00:00')) {
 
@@ -264,7 +266,7 @@ var daysAfterPrediction = function (latNum, lonNum) {
                         weekDayDiv.append(weatherDay + " " + weatherIconDay);
                     } else if (weatherDay === 'Clouds') {
                         titleWeather.innerHTML =
-                        "<img src='https://openweathermap.org/img/wn/" + weatherIconDay + ".png'>"+ 'today will have ' + weatherDay + "<p>" + descriptionDay + "</p>";
+                            "<img src='https://openweathermap.org/img/wn/" + weatherIconDay + ".png'>" + 'today will have ' + weatherDay + "<p>" + descriptionDay + "</p>";
                         console.log(weatherDay);
                         weekDayDiv.append(weatherDay + " " + weatherIconDay);
                     } else if (weatherDay === 'Clear') {
@@ -283,7 +285,7 @@ var daysAfterPrediction = function (latNum, lonNum) {
                         weekDayDiv.append(weatherDay + " " + weatherIconDay);
                     } else {
                         titleWeather.innerHTML =
-                        "<img src='https://openweathermap.org/img/wn/" + weatherIconDay + ".png'>" + 'error: wheather cannot be found';
+                            "<img src='https://openweathermap.org/img/wn/" + weatherIconDay + ".png'>" + 'error: wheather cannot be found';
                         alert("Error: wheather cannot be found ")
                         weekDayDiv.append(titleWeather);
                     }
@@ -305,8 +307,39 @@ var daysAfterPrediction = function (latNum, lonNum) {
 
 }
 
+var recentSearches = document.getElementsByClassName("recent-searches");
 
+var searchedrecentArray = JSON.stringify(localStorage.getItem("areaSearched"));
 
+function appendStorepopulousCities(populousCities) {
+    if (populousCities) {
+            var lastWeather = document.createElement('p');
+        lastWeather.textContent = populousCities;
+        console.log(lastWeather);
+       // lastWeather.addClass('button');
+        recentSearches.append("hello this is a test " + lastWeather);
+    } else if (searchedrecentArray.length > 5){
+        recentSearches.remove(lastWeather);
+    }
+   // recentSearches.remove(lastWeather); 
+}
+       // localStorage.setitem("areaSearched", JSON.stringify(populousCities + ));
+
+// Both populousCities and cityName can share the same array
+function appendStorecityName(cityName) {
+    if (searchedrecentArray.includes(cityName)) {
+        searchedrecentArray.unshift(cityName);
+
+        if (searchedrecentArray.length > 5) {
+            searchedrecentArray.pop();
+        }
+        localStorage.setitem("areaSearched", JSON.stringify(populousCities));
+        var lastWeather = document.createElement("last-weather");
+        lastWeather.text(populousCities + " " + data.weather[0].main + " " + dateEl);
+        lastWeather.addClass(".button");
+        recentSearches.append(lastWeather);
+    }
+}
 
 
 userCitySearch.addEventListener('submit', searchCityWeatherInput);

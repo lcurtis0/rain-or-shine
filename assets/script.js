@@ -121,10 +121,8 @@ var getCityNameInfo = function (cityName) { // Once the cityName have been made 
 
             var latNum = data.coord.lat;
 
-            var lonNum = data.coord.lon;
+            var lonNum = data.coord.lon;// variables for latitude and longitude
 
-            console.log(lonNum); // variables for latitude and longitude
-            console.log(latNum);
             daysAfterPrediction(latNum, lonNum); // passed to daysAfterPrediction function
 
         })
@@ -144,7 +142,6 @@ var getPopularCities = function (populousCities) {
             var forcastEl = document.createElement('h2');
 
             var weatherIconDay = data.weather[0].icon;
-            console.log(weatherIconDay);
 
             if (data.weather[0].main === 'Rain') {
                 forcastEl.innerHTML =
@@ -199,11 +196,15 @@ var getPopularCities = function (populousCities) {
 
             var lonNum = data.coord.lon;
 
-            console.log(lonNum);
-            console.log(latNum);
-            daysAfterPrediction(latNum, lonNum);
-            appendStorepopulousCities(populousCities);
+            var searchedrecentArray = {
+                city: populousCities
+            }
+            
             localStorage.setItem("areaSearched", populousCities);
+            
+
+            daysAfterPrediction(latNum, lonNum);
+            saveslastWeather(populousCities, searchedrecentArray);
         })
 
 }
@@ -218,12 +219,10 @@ var displayWeather = function (currentWeek, cityName) {
 var daysAfterPrediction = function (latNum, lonNum) {
     //https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key} 
     var fullForecastURL = baseOpenForcastURL + "lat=" + latNum + "&lon=" + lonNum + "&appid=" + keyAPIforecast + "&units=imperial";
-    console.log(fullForecastURL)
     // seprate URL has to be made different days and must use latitude and longitude to find location
     fetch(fullForecastURL)
         .then(function (response) {
             if (response.ok) {
-                console.log(response);
                 console.log("response is working");
             } else {
                 console.log("error");
@@ -232,10 +231,8 @@ var daysAfterPrediction = function (latNum, lonNum) {
         })
 
         .then(function (data) {
-            console.log(data);
 
             var list = data.list;
-            console.log(list);
 
             for (var i = 0; i < list.length; i++) {
 
@@ -310,39 +307,54 @@ var daysAfterPrediction = function (latNum, lonNum) {
 }
 
 
-populousCities.addEventListener('click', appendStorepopulousCities);
+populousCities.addEventListener('click', saveslastWeather);
 
 
-function appendStorepopulousCities(populousCities) {
-    if (populousCities) {
-        var lastWeather = document.createElement('p');
-        //lastWeather.textContent = ("This location is  " + populousCities);
-        // lastWeather.addClass('button');
-        recentSearches[0].append(lastWeather.textContent = ("This location is  " + populousCities));
-    } else if (searchedrecentArray.length > 5) {
-        recentSearches[0].remove(lastWeather);
-    }
-    // recentSearches.remove(lastWeather); 
-}
-// localStorage.setitem("areaSearched", JSON.stringify(populousCities + ));
 
-// Both populousCities and cityName can share the same array
-function appendStorecityName(cityName) {
-    if (searchedrecentArray.includes(cityName)) {
-        searchedrecentArray.unshift(cityName);
-
+function putInStorage(populousCities) {
+    if (searchedrecentArray.includes(populousCities)) {
+        searchedrecentArray.unshift(populousCities);
         if (searchedrecentArray.length > 5) {
-            searchedrecentArray.pop();
+            searchedrecentArray.pop(populousCities);
         }
-        localStorage.setitem("areaSearched", JSON.stringify(populousCities));
-        var lastWeather = document.createElement("last-weather");
-        lastWeather.text(populousCities + " " + data.weather[0].main + " " + dateEl);
-        lastWeather.addClass(".button");
-        recentSearches.append(lastWeather);
+        localStorage.setItem("areaSearched", JSON.stringify(searchedrecentArray));
+        saveslastWeather()
     }
 }
 
-userCitySearch.addEventListener('submit', searchCityWeatherInput);
-populousCities.addEventListener('click', buttonClickHandler);
+    function saveslastWeather() {
+        var storedLocation = JSON.parse(localStorage.getItem("areaSearched"));
+            for (var i = 0; i < storedLocation.length; i++) {
+            var lastWeather = document.createElement("button");
+            lastWeather.addClass('button');
+            recentSearches.append(lastWeather.textContent = ("This location is  " + storedLocation[i].city));
+        }
+    }
+    
+
+
+
+
+    // localStorage.setitem("areaSearched", JSON.stringify(populousCities + ));
+
+    // Both populousCities and cityName can share the same array
+    function appendStorecityName(cityName) {
+        if (searchedrecentArray.includes(cityName)) {
+            searchedrecentArray.unshift(cityName);
+
+            if (searchedrecentArray.length > 5) {
+                searchedrecentArray.pop();
+            }
+            localStorage.setitem("areaSearched", JSON.stringify(populousCities));
+            var lastWeather = document.createElement("last-weather");
+            lastWeather.text(populousCities + " " + data.weather[0].main + " " + dateEl);
+            lastWeather.addClass(".button");
+            recentSearches.append(lastWeather);
+        }
+    }
+
+
+    userCitySearch.addEventListener('submit', searchCityWeatherInput);
+    populousCities.addEventListener('click', buttonClickHandler);
 
 

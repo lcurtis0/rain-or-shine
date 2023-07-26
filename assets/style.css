@@ -252,3 +252,20 @@
   .col-auto {
     flex-grow: 1;
   }
+
+  /*---------------------------------------------------------*/
+
+  .recent-searches {
+    font-size: 15px;
+    text-decoration:none;
+    padding:var(--margin-padding);
+    width: 250px;
+    display: block;
+    margin: var(--margin-padding);
+    border-radius: 5px;
+    color: var(--primary);
+    border: solid 1px;
+    outline: none;
+    background-color: var(--light-dark);
+    font-family: Georgia, 'Times New Roman', Times, serif;
+  }

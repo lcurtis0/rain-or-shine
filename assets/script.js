@@ -125,6 +125,16 @@ var getCityNameInfo = function (cityName) { // Once the cityName have been made 
 
             daysAfterPrediction(latNum, lonNum); // passed to daysAfterPrediction function
 
+            let searchedrecentArray = [];
+            searchedrecentArray.push(cityName);
+            //searchedrecentArray = ['Denver', 'LA', 'LV']
+
+            localStorage.setItem("areaSearched", JSON.stringify(searchedrecentArray));
+
+
+            daysAfterPrediction(latNum, lonNum);
+            saveslastWeather(cityName, searchedrecentArray);
+
         })
 
 }
@@ -333,6 +343,18 @@ function putInStorage(populousCities) {
     saveslastWeather();
 }
 
+
+function putInStorageCityName(cityName) {
+    localStorage.getItem("areaSearched", JSON.parse(searchedrecentArray));
+    if (searchedrecentArray.indexOf(cityName) !== -1) {
+        return;
+    } else if (searchedrecentArray.length < 5) {
+        searchedrecentArray.push(cityName);
+    }
+    localStorage.setItem("areaSearched", JSON.stringify(searchedrecentArray));
+    saveslastWeather();
+}
+
 function saveslastWeather() {
     var storedLocation = JSON.parse(localStorage.getItem("areaSearched"));
     var lastWeather = document.createElement('div');
@@ -341,7 +363,6 @@ function saveslastWeather() {
         recentSearches[i].appendChild(lastWeather);
     }
 }
-
 
 
 // localStorage.setitem("areaSearched", JSON.stringify(populousCities + ));

@@ -335,11 +335,10 @@ function putInStorage(populousCities) {
 
 function saveslastWeather() {
     var storedLocation = JSON.parse(localStorage.getItem("areaSearched"));
+    var lastWeather = document.createElement('div');
     for (var i = 0; i < storedLocation.length; i++) {
-        var lastWeather = document.createElement('div');
-        //lastWeather.addClass("btn");
         lastWeather.textContent = ("This location is  " + storedLocation[i]);
-        recentSearches[i].append(lastWeather);
+        recentSearches[i].appendChild(lastWeather);
     }
 }
 

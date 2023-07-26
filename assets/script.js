@@ -40,7 +40,7 @@ var searchCityWeatherInput = function (event) { // this function will be called 
 // This ection is for the well known city locations i.e. Denvier or New York
 var buttonClickHandler = function (event) {
     var populousCities = event.target.getAttribute('popular-cities'); // popular cities  is the attribute to each button in the HTML doc
-
+    console.log("populousCities: ", populousCities)
 
     if (populousCities) {
         getPopularCities(populousCities); // when click event happens it creates a value and uses it as a place holder
@@ -196,12 +196,12 @@ var getPopularCities = function (populousCities) {
 
             var lonNum = data.coord.lon;
 
-            var searchedrecentArray = {
-                city: populousCities
-            }
-            
-            localStorage.setItem("areaSearched", populousCities);
-            
+            let searchedrecentArray = [];
+            searchedrecentArray.push(populousCities);
+            //searchedrecentArray = ['Denver', 'LA', 'LV']
+
+            localStorage.setItem("areaSearched", JSON.stringify(searchedrecentArray));
+
 
             daysAfterPrediction(latNum, lonNum);
             saveslastWeather(populousCities, searchedrecentArray);
@@ -309,52 +309,62 @@ var daysAfterPrediction = function (latNum, lonNum) {
 
 populousCities.addEventListener('click', saveslastWeather);
 
+/*
+1. you need to store the search History in the local storage
+search history is going to be an array
+let searchHistory = [];
+2. search -> what you are searching for 
+3. check for duplicates in the seacrh history array
+if(seacrhHistory.indexof(search) !== -1){
+    return;
+}
+seacrhHistory.push(search);
+localStorage.setItem('search-history', JSON.stringify(seacrhHistory))
 
-
+*/
 function putInStorage(populousCities) {
-    if (searchedrecentArray.includes(populousCities)) {
-        searchedrecentArray.unshift(populousCities);
-        if (searchedrecentArray.length > 5) {
-            searchedrecentArray.pop(populousCities);
-        }
-        localStorage.setItem("areaSearched", JSON.stringify(searchedrecentArray));
-        saveslastWeather()
+    localStorage.getItem("areaSearched", JSON.parse(searchedrecentArray));
+    if (searchedrecentArray.indexOf(populousCities) !== -1) {
+        return;
+    } else if (searchedrecentArray.length < 5) {
+        searchedrecentArray.push(populousCities);
+    }
+    localStorage.setItem("areaSearched", JSON.stringify(searchedrecentArray));
+    saveslastWeather();
+}
+
+function saveslastWeather() {
+    var storedLocation = JSON.parse(localStorage.getItem("areaSearched"));
+    for (var i = 0; i < storedLocation.length; i++) {
+        var lastWeather = document.createElement('div');
+        //lastWeather.addClass("btn");
+        lastWeather.textContent = ("This location is  " + storedLocation[i]);
+        recentSearches[i].append(lastWeather);
     }
 }
 
-    function saveslastWeather() {
-        var storedLocation = JSON.parse(localStorage.getItem("areaSearched"));
-            for (var i = 0; i < storedLocation.length; i++) {
-            var lastWeather = document.createElement("button");
-            lastWeather.addClass('button');
-            recentSearches.append(lastWeather.textContent = ("This location is  " + storedLocation[i].city));
+
+
+// localStorage.setitem("areaSearched", JSON.stringify(populousCities + ));
+
+// Both populousCities and cityName can share the same array
+function appendStorecityName(cityName) {
+    if (searchedrecentArray.includes(cityName)) {
+        searchedrecentArray.unshift(cityName);
+
+        if (searchedrecentArray.length > 5) {
+            searchedrecentArray.pop();
         }
+        localStorage.setitem("areaSearched", JSON.stringify(populousCities));
+        var lastWeather = document.createElement("last-weather");
+        lastWeather.text(populousCities + " " + data.weather[0].main + " " + dateEl);
+        lastWeather.addClass(".button");
+        recentSearches.append(lastWeather);
     }
-    
+}
 
 
-
-
-    // localStorage.setitem("areaSearched", JSON.stringify(populousCities + ));
-
-    // Both populousCities and cityName can share the same array
-    function appendStorecityName(cityName) {
-        if (searchedrecentArray.includes(cityName)) {
-            searchedrecentArray.unshift(cityName);
-
-            if (searchedrecentArray.length > 5) {
-                searchedrecentArray.pop();
-            }
-            localStorage.setitem("areaSearched", JSON.stringify(populousCities));
-            var lastWeather = document.createElement("last-weather");
-            lastWeather.text(populousCities + " " + data.weather[0].main + " " + dateEl);
-            lastWeather.addClass(".button");
-            recentSearches.append(lastWeather);
-        }
-    }
-
-
-    userCitySearch.addEventListener('submit', searchCityWeatherInput);
-    populousCities.addEventListener('click', buttonClickHandler);
+userCitySearch.addEventListener('submit', searchCityWeatherInput);
+populousCities.addEventListener('click', buttonClickHandler);
 
 

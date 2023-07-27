@@ -1,5 +1,4 @@
 
-
 var userFormEl = document.querySelector('#user-form');
 var openAreaDiv = document.querySelector('#open-area');
 var userCitySearch = document.querySelector('#user-city-search');
@@ -316,34 +315,20 @@ var daysAfterPrediction = function (latNum, lonNum) {
 
 }
 
-
 populousCities.addEventListener('click', saveslastWeather);
 
-/*
-1. you need to store the search History in the local storage
-search history is going to be an array
-let searchHistory = [];
-2. search -> what you are searching for 
-3. check for duplicates in the seacrh history array
-if(seacrhHistory.indexof(search) !== -1){
-    return;
-}
-seacrhHistory.push(search);
-localStorage.setItem('search-history', JSON.stringify(seacrhHistory))
-
-*/
 function putInStorage(populousCities) {
     localStorage.getItem("areaSearched", JSON.parse(searchedrecentArray));
-    if (searchedrecentArray.indexOf(populousCities) !== -1) {
+    if (searchedrecentArray.indexOf(populousCities) !== -1) { // if populousCities exists then it will move to the else if
         return;
-    } else if (searchedrecentArray.length < 5) {
+    } else if (searchedrecentArray.length < 5) { // if under 5 the populousCities willl be pushed into array
         searchedrecentArray.push(populousCities);
     }
     localStorage.setItem("areaSearched", JSON.stringify(searchedrecentArray));
-    saveslastWeather();
+    saveslastWeather(); // finally array will go to a function to be appended
 }
 
-
+// Both populousCities and cityName can share the same array
 function putInStorageCityName(cityName) {
     localStorage.getItem("areaSearched", JSON.parse(searchedrecentArray));
     if (searchedrecentArray.indexOf(cityName) !== -1) {
@@ -357,32 +342,12 @@ function putInStorageCityName(cityName) {
 
 function saveslastWeather() {
     var storedLocation = JSON.parse(localStorage.getItem("areaSearched"));
-    var lastWeather = document.createElement('div');
+    var lastWeather = document.createElement('button');
     for (var i = 0; i < storedLocation.length; i++) {
         lastWeather.textContent = ("This location is  " + storedLocation[i]);
         recentSearches[i].appendChild(lastWeather);
     }
 }
-
-
-// localStorage.setitem("areaSearched", JSON.stringify(populousCities + ));
-
-// Both populousCities and cityName can share the same array
-function appendStorecityName(cityName) {
-    if (searchedrecentArray.includes(cityName)) {
-        searchedrecentArray.unshift(cityName);
-
-        if (searchedrecentArray.length > 5) {
-            searchedrecentArray.pop();
-        }
-        localStorage.setitem("areaSearched", JSON.stringify(populousCities));
-        var lastWeather = document.createElement("last-weather");
-        lastWeather.text(populousCities + " " + data.weather[0].main + " " + dateEl);
-        lastWeather.addClass(".button");
-        recentSearches.append(lastWeather);
-    }
-}
-
 
 userCitySearch.addEventListener('submit', searchCityWeatherInput);
 populousCities.addEventListener('click', buttonClickHandler);

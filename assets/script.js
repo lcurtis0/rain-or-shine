@@ -150,6 +150,8 @@ var getPopularCities = function (populousCities) {
             console.log("fetch populousCities is working");
             var forcastEl = document.createElement('h2');
 
+            
+
             var weatherIconDay = data.weather[0].icon;
 
             if (data.weather[0].main === 'Rain') {

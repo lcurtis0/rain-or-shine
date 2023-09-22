@@ -29,9 +29,9 @@ In this asignment we were taught to understand how to gather api data and pass i
 
 For the webpage a user can use search bar or buttons to find a city location and see the weather of the comming days
 
-![alttext](./assets/images/Screenshot (141).png)
+![alttext](./assets/images/Screenshot(141).png)
 
-![alttext](./assets/images/Screenshot (142).png)
+![alttext](./assets/images/Screenshot(142).png)
 
 ## Credits
 

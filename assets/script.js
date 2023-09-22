@@ -8,9 +8,9 @@ var populousCities = document.querySelector('#populous-cities');
 var userInputTitle = document.querySelector('#phase-city-user-input-title');
 
 // "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=1f607030bc029e79a2a927c3fe3fb558";
-var baseOpenWeatherURL = 'http://api.openweathermap.org/data/2.5/weather?q='
+var baseOpenWeatherURL = 'https://api.openweathermap.org/data/2.5/weather?q='
 
-var baseOpenForcastURL = 'http://api.openweathermap.org/data/2.5/forecast?'
+var baseOpenForcastURL = 'https://api.openweathermap.org/data/2.5/forecast?'
 
 var keyAPI = '&appid=ff99ce7a71ef0123ade790b4f039ec6c'
 
@@ -150,7 +150,7 @@ var getPopularCities = function (populousCities) {
             console.log("fetch populousCities is working");
             var forcastEl = document.createElement('h2');
 
-            
+
 
             var weatherIconDay = data.weather[0].icon;
 
